@@ -1,0 +1,158 @@
+/* ----- GERAL ----- */
+
+main {
+    display: flex;
+    gap: 45px;
+}
+
+section img {
+    width: 180px;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 15px;
+}
+
+#info_1 {
+    margin-top: 0px;
+}
+
+details ul li {
+    margin-top: 15px;
+}
+
+
+li {
+    margin-top: 30px;
+}
+
+.caixa_detalhes_locacao {
+    display: flex;
+    gap: 45px;
+}
+
+.caixa_detalhes_conteiner {
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    gap: 45px;
+}
+
+/* ----- DETALHES DO CONTEINER ----- */
+
+.info_detalhes_conteiner {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.detalhes_conteiner {
+    display: flex;
+    gap: 35px;
+    padding: 35px;
+    height: fit-content;
+}
+
+.info_locacao {
+    display: flex;
+}
+
+.situacao {
+    margin-left: auto;
+}
+
+h1 {
+    margin-bottom: 10px;
+}
+
+.botoes_detalhes_conteiner {
+    display: flex;
+    gap: 25px;
+    margin-left: auto;
+}
+
+#button_vistoria {
+    height: auto;
+    padding: 0px 28px;
+}
+
+.info_locacao p {
+    margin-left: auto;
+}
+
+/* ----- ESPECIFICAÇÕES TÉCNICAS ----- */
+
+.especificacoes_tecnicas {
+    width: 30%;
+}
+
+/* ----- TERMOS DE ALUGUEL ----- */
+
+.info_termos_aluguel {
+    border-bottom: solid 2px var(--cor_2);
+    display: flex;
+    align-items: end;
+    margin-top: 25px;
+    padding-bottom: 25px;
+}
+
+.secao_titulo button {
+    margin-left: auto;
+}
+
+#parcela {
+    display: flex;
+    align-items: end;
+}
+
+#parcela h2 {
+    margin-right: 5px;
+    position: relative;
+    top: 5px;
+}
+
+.termos_aluguel .secao_titulo {
+    margin-bottom: 20px;
+}
+
+.termos_aluguel {
+    width: 65%;
+}
+
+#info_termos_aluguel_titulo {
+    display: flex;
+}
+
+/* ----- LOCATÁRIO ----- */
+
+.locatario {
+    width: 35%;
+}
+
+.img_locatario {
+    width: 30px;
+    height: 30px;
+    border-radius: 0px;
+}
+
+.info_locatario {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 45px;
+}
+
+.localizacao_locatario {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.localizacao_locatario b {
+    margin-bottom: 10px;
+}
+
+.info_locatario p {
+    font-size: 20px;
+    color: var(--cor_2);
+}
