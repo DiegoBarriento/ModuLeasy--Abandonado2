@@ -1,6 +1,10 @@
+import Header from '../Header';
+
 export default function DetalhesLocacao(){
+
     return(
         <>
+            <Header />
             <main>
                 <div className="caixa_detalhes_conteiner">
                     <section className="detalhes_conteiner">
@@ -24,7 +28,7 @@ export default function DetalhesLocacao(){
                             <div className="secao_titulo">
                                 <span className="material-symbols-outlined" id="icone_secao">payments</span>
                                 <h2 className="titulo_secao">Termos de Aluguel</h2>
-                                <button className="segundario_button"><span class="material-symbols-outlined">description</span>CONTRATO</button>
+                                <button className="segundario_button"><span className="material-symbols-outlined">description</span>CONTRATO</button>
                             </div>
                             <ul>
                                 <li className="info_termos_aluguel" id="info_1">
@@ -88,7 +92,7 @@ export default function DetalhesLocacao(){
                             <details>
                                 <summary>
                                     <b>FINALIDADES</b>
-                                    <span class="material-symbols-outlined" id="icone_seta">keyboard_arrow_down</span>
+                                    <span className="material-symbols-outlined" id="icone_seta">keyboard_arrow_down</span>
                                 </summary>
                                 <ul>
                                     <li>

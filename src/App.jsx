@@ -1,11 +1,13 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import DetalhesLocacao from './components/DetalhesLocacao'
+import DetalhesLocacao from './components/DetalhesLocacao';
+import CadastroContainer from './components/CadastrarContainer';
+import CadastroLoginUsuario from './components/CadastroLoginUsuario';
 
 export default function App() {
   return(
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<DetalhesLocacao />} />
+        <Route path="/" element={<CadastroLoginUsuario />} />
       </Routes>
     </BrowserRouter>
   )

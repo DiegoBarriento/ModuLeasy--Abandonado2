@@ -2,6 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Sora:wght@100..800&display=swap');
 /* impor para todos os arquivos css aqui, para facilitar o Import do Main e APP .jsx*/
 
+@import url(estilo_cadastro&login.css);
 @import url(detalhes_locacao.css);
 @import url(cadastrar_conteiner.css);
 
