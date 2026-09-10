@@ -1,13 +1,29 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import DetalhesLocacao from './components/DetalhesLocacao';
-import CadastroContainer from './components/CadastrarContainer';
+import CadastrarContainer from './components/CadastrarContainer';
 import CadastroLoginUsuario from './components/CadastroLoginUsuario';
+import MinhasLocacoes from './components/MinhasLocacoes';
+import BaseHeader from './components/BaseHeader';
+import Catalogo from './components/Catalogo';
+import Financeiro from './components/Financeiro';
+import MeusConteiners from './components/MeusConteiners';
+import MeusDepositos from './components/MeusDepositos';
 
 export default function App() {
+  const usuario = {tipoUsuario:'Locador', nome:'Juca Bala'}; // esses dadso depois vão ser pegos pelo local roste
+  const tipoUsuario = usuario.tipoUsuario;
   return(
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<CadastroLoginUsuario />} />
+        <Route path="/cadastro_login" element={<CadastroLoginUsuario />}/>
+        <Route path="/" element={<BaseHeader />}>
+          {tipoUsuario === "Locador" ? <Route index element={<Financeiro/>}/> : <Route index element={<Catalogo/>}/>}
+          <Route path="detalhes_locacao" element={<DetalhesLocacao/>}/>
+          <Route path="cadastro_container" element={<CadastrarContainer/>}/>
+          <Route path="minhas_locacoes" element={<MinhasLocacoes/>}/>
+          <Route path="meus_containers" element={<MeusConteiners/>}/>
+          <Route path="meus_depositos" element={<MeusDepositos/>}/>
+        </Route>
       </Routes>
     </BrowserRouter>
   )

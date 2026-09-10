@@ -1,8 +1,7 @@
-import Header from '../Header'
+
 export default function CadastrarContainer(){
     return(
         <>
-            <Header />
             <main>
                 <section className="parte_cadastro">
                     <div className="secao_titulo">

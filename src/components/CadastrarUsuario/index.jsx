@@ -8,6 +8,7 @@ export default function CadastrarUsuario(){
     const [email, setEmail] = useState("");
     const [senha, setSenha] = useState("");
     const [confirma_senha, setConfirma_senha] = useState("");
+    const [tipoUsuario, setTipoUsuario] = useState("");
 
     const navegador = useNavigate();
     function txtNome_change(e){
@@ -122,6 +123,32 @@ export default function CadastrarUsuario(){
     return(
         <>
             <section>
+
+                <aside className="radio_tipoUsuario">
+                    <label>
+                        <input 
+                        type="radio" 
+                        name="tipoUsuario" 
+                        value="Locador" 
+                        checked={tipoUsuario === 'Locador'} 
+                        onChange={(e) => setTipoUsuario(e.target.value)} 
+                        />
+                        Locador
+                    </label>
+
+                    <label>
+                        <input 
+                        type="radio" 
+                        name="tipoUsuario" 
+                        value="Locatario" 
+                        checked={tipoUsuario === 'Locatario'} 
+                        onChange={(e) => setTipoUsuario(e.target.value)} 
+                        />
+                        Locatario
+                    </label>
+
+                </aside>
+
                 <div>
                     <label htmlFor="nome">NOME</label>
                     <input type="text" name="nome" value={nome} onChange={txtNome_change} />

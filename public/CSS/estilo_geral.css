@@ -52,6 +52,13 @@ a {
     font-weight: 400;
 }
 
+NavLink {
+    text-decoration: none;
+    color: var(--cor_0);
+    font-size: 20px;
+    font-weight: 400;
+}
+
 .pagina_ativa {
     padding: 10px;
     border-bottom: solid 2px;

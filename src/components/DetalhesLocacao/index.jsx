@@ -1,10 +1,8 @@
-import Header from '../Header';
 
 export default function DetalhesLocacao(){
 
     return(
         <>
-            <Header />
             <main>
                 <div className="caixa_detalhes_conteiner">
                     <section className="detalhes_conteiner">

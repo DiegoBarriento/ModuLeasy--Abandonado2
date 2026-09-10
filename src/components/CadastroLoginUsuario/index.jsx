@@ -2,6 +2,9 @@ import CadastrarUsuario from '../CadastrarUsuario';
 import { useLocation } from "react-router-dom";
 import LoginUsuario from '../LoginUsuario';
 import EsqueciSenha from '../EsqueciSenha';
+import InserirCodigo from '../InserirCodigo';
+import RedefinirSenha from '../RedefinirSenha';
+
 export default function CadastroLoginUsuario(){
     const location = useLocation(); // import 'Location' usado para retirar dados recebidos pelo 'Navigate'
     let componente = ""
@@ -17,7 +20,7 @@ export default function CadastroLoginUsuario(){
         componente = <LoginUsuario/>
     }
 
-    if(status === "CadastrarUsuario"){
+    if(status === "CadastrarUsuario" || status == null){
         componente = <CadastrarUsuario/>
     }
 
