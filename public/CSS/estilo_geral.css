@@ -64,6 +64,11 @@ NavLink {
     border-bottom: solid 2px;
 }
 
+nav a.active {
+    padding: 10px;
+    border-bottom: solid 2px;
+}
+
 header img {
     width: 220px;
 }
