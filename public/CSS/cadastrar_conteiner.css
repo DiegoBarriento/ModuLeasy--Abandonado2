@@ -5,3 +5,17 @@
 .input_grupo {
     width: 30%;
 }
+
+.etapas_cadastro_conteiner {
+    display: flex;
+    flex-direction: column;
+}
+
+.etapas_cadastro_conteiner a {
+    margin-bottom: 20px;
+    margin-left: 0;
+    margin-right: 0;
+    color: var(--cor_2);
+}
+
+.cadastro
