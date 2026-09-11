@@ -19,9 +19,9 @@ export default function App() {
         <Route path="/" element={<BaseHeader />}>
           {tipoUsuario === "Locador" ? <Route index element={<Financeiro/>}/> : <Route index element={<Catalogo/>}/>}
           <Route path="detalhes_locacao" element={<DetalhesLocacao/>}/>
-          <Route path="cadastro_container" element={<CadastrarContainer/>}/>
+          <Route path="cadastrar_conteiner" element={<CadastrarContainer/>}/>
           <Route path="minhas_locacoes" element={<MinhasLocacoes/>}/>
-          <Route path="meus_containers" element={<MeusConteiners/>}/>
+          <Route path="meus_conteiners" element={<MeusConteiners/>}/>
           <Route path="meus_depositos" element={<MeusDepositos/>}/>
         </Route>
       </Routes>
