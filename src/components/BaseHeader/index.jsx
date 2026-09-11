@@ -19,7 +19,7 @@ export default function BaseHeader(){
                     <a>Cadastrar Conteiner</a> */}
                     <div className="icones_header">
                         <span className="material-symbols-outlined" id="icone_header">notifications</span>
-                        <span className="material-symbols-outlined" id="icone_header">person</span>
+                        <span className="material-symbols-outlined" id="icone_header" >person</span>
                     </div>
                 </nav>
             </header>
