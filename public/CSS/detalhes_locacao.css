@@ -5,12 +5,12 @@
     gap: 45px;
 } */
 
-section img {
+/* section img {
     width: 180px;
     height: 180px;
     object-fit: cover;
     border-radius: 15px;
-}
+} */
 
 #info_1 {
     margin-top: 0px;
@@ -53,6 +53,13 @@ li {
     height: fit-content;
 }
 
+.detalhes_conteiner img{
+    width: 180px;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 15px;
+}
+
 .info_locacao {
     display: flex;
 }
@@ -61,9 +68,9 @@ li {
     margin-left: auto;
 }
 
-h1 {
+/* h1 {
     margin-bottom: 10px;
-}
+} */
 
 .botoes_detalhes_conteiner {
     display: flex;
@@ -78,6 +85,10 @@ h1 {
 
 .info_locacao p {
     margin-left: auto;
+}
+
+.info_locacao h1{
+    margin-bottom: 10px;
 }
 
 /* ----- ESPECIFICAÇÕES TÉCNICAS ----- */

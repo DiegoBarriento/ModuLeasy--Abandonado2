@@ -1,26 +1,43 @@
 .divPai{
     display: flex;
-    gap: 25px;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 15px;
+    width: 100%;
+
 }
 
-
 .sectionArea{
-    width: 420px;
-    height: 40px;
+    width: 30%;
+    padding: 10px;
 }
 
 .DepositoNome{
     display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
     gap: 8px;
 }
 
-.Deposito{
-    font-size: 20px;
+.DepositoNome h2{
+    font-size: 1.2rem;
 }
+
+/* .Deposito{
+    font-size: 20px;
+} */
 
 .mainDeposito{
     display: flex;
-    gap: 45px;
+    width: 100%;
+    gap: 35px;
     flex-direction: column;
     color: #1351AA;
+}
+
+.adicionar{
+    border: none;
+    outline: none;
+    color: var(--cor_1);
+    cursor: pointer;
 }

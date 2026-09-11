@@ -1,7 +1,7 @@
 export default function MinhasLocacoes(){
     return(
         <>
-            <h1>Minhas locações</h1>
+            <h1>Minhas Locações</h1>
 
         <nav className="filtro_locacao">
             <label className="opcao_filtro_locacao"><input type="radio" name="filtro_locacao" value="todos"/>TODOS</label>                        

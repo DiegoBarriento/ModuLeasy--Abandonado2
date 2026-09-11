@@ -124,7 +124,7 @@ export default function CadastrarContainer(){
                     <section className="parte_cadastro" action="#">
                         <div className="secao_titulo">
                             <span className="material-symbols-outlined" id="icone_secao">bottom_sheets</span>
-                            <h2 className="titulo_secao">Especificações Técnicas</h2>
+                            <h2 className="titulo_secao" id="galeria">Especificações Técnicas</h2>
                         </div>
                     </section>
                 </div>

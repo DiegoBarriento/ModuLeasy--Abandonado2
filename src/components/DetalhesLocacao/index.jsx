@@ -3,39 +3,39 @@ export default function DetalhesLocacao(){
 
     return(
         <>
-            <div class="caixa_detalhes_conteiner">
-            <section class="detalhes_conteiner">
+            <div className="caixa_detalhes_conteiner">
+            <section className="detalhes_conteiner">
                 <img src="images/conteiner.png"/>
-                <div class="info_detalhes_conteiner">
-                    <div class="info_locacao">
+                <div className="info_detalhes_conteiner">
+                    <div className="info_locacao">
                         <div>
                             <h1>Dry 40'</h1>
                             <p>ABCU 123456 7</p>
                         </div>
-                        <p class="situacao" id="pagamento_pendente">PAGAMENTO PENDENTE</p>
+                        <p className="situacao" id="pagamento_pendente">PAGAMENTO PENDENTE</p>
                     </div>
-                    <div class="botoes_detalhes_conteiner">
-                        <button class="segundario_button" id="button_vistoria">CHECK-IN / CHECK-OUT</button>
+                    <div className="botoes_detalhes_conteiner">
+                        <button className="segundario_button" id="button_vistoria">CHECK-IN / CHECK-OUT</button>
                         <button>GERENCIAR CONTEINER</button>
                     </div>
                 </div>
             </section>
-            <div class="caixa_detalhes_locacao">
-                <section class="termos_aluguel">
-                    <div class="secao_titulo">
-                        <span class="material-symbols-outlined" id="icone_secao">payments</span>
-                        <h2 class="titulo_secao">Termos de Aluguel</h2>
-                        <button class="segundario_button"><span class="material-symbols-outlined">description</span>CONTRATO</button>
+            <div className="caixa_detalhes_locacao">
+                <section className="termos_aluguel">
+                    <div className="secao_titulo">
+                        <span className="material-symbols-outlined" id="icone_secao">payments</span>
+                        <h2 className="titulo_secao">Termos de Aluguel</h2>
+                        <button className="segundario_button"><span className="material-symbols-outlined">description</span>CONTRATO</button>
                     </div>
                     <ul>
-                        <li class="info_termos_aluguel" id="info_1">
+                        <li className="info_termos_aluguel" id="info_1">
                             <b>VALOR</b>
                             <div id="parcela">
                                 <h2>R$ 1.500,00 </h2>
                                 <p>/mês</p>
                             </div>
                         </li>
-                        <li class="info_termos_aluguel">
+                        <li className="info_termos_aluguel">
                             <b>DATA DE INICIO</b>
                             <p>01/01/2023</p>
                         </li>
@@ -45,16 +45,16 @@ export default function DetalhesLocacao(){
                         </li>
                     </ul>
                 </section>
-                <section class="locatario">
-                    <div class="secao_titulo">
-                        <span class="material-symbols-outlined" id="icone_secao">person</span>
-                        <h2 class="titulo_secao">Locatário</h2>
+                <section className="locatario">
+                    <div className="secao_titulo">
+                        <span className="material-symbols-outlined" id="icone_secao">person</span>
+                        <h2 className="titulo_secao">Locatário</h2>
                     </div>
-                    <div class="info_locatario">
-                        <img src="images/locatario.png" class="img_locatario"/>
+                    <div className="info_locatario">
+                        <img src="images/locatario.png" className="img_locatario"/>
                         <p>John Kaisen</p>
                     </div>
-                    <div class="localizacao_locatario">
+                    <div className="localizacao_locatario">
                         <b>LOCALIZAÇÃO</b>
                         <p>Santos / SP</p>
                         <p>Rua das Flores, 123</p>
@@ -63,10 +63,10 @@ export default function DetalhesLocacao(){
             </div>
         </div>
 
-        <section class="especificacoes_tecnicas">
-            <div class="secao_titulo">
-                <span class="material-symbols-outlined" id="icone_secao">bottom_sheets</span>
-                <h2 class="titulo_secao">Especificações Técnicas</h2>
+        <section className="especificacoes_tecnicas">
+            <div className="secao_titulo">
+                <span className="material-symbols-outlined" id="icone_secao">bottom_sheets</span>
+                <h2 className="titulo_secao">Especificações Técnicas</h2>
             </div>
             <ul>
                 <li id="info_1">
@@ -89,7 +89,7 @@ export default function DetalhesLocacao(){
                     <details>
                         <summary>
                             <b>FINALIDADES</b>
-                            <span class="material-symbols-outlined" id="icone_seta">keyboard_arrow_down</span>
+                            <span className="material-symbols-outlined" id="icone_seta">keyboard_arrow_down</span>
                         </summary>
                         <ul>
                             <li>
@@ -108,7 +108,7 @@ export default function DetalhesLocacao(){
                     <details>
                         <summary>
                             <b>COMPONENTES ESTRUTURAIS</b>
-                            <span class="material-symbols-outlined" id="icone_seta">keyboard_arrow_down</span>
+                            <span className="material-symbols-outlined" id="icone_seta">keyboard_arrow_down</span>
                         </summary>
                         <ul>
                             <li>
