@@ -6,6 +6,7 @@ import '../public/CSS/cadastrar_conteiner.css'
 import '../public/CSS/detalhes_locacao.css'
 import '../public/CSS/estilo_cadastro&login.css'
 import '../public/CSS/estilo_geral.css'
+import '../public/CSS/deposito.css'
 // import de Css
 
 import App from './App.jsx'

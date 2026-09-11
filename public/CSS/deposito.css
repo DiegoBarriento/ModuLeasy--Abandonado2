@@ -1,0 +1,25 @@
+.divPai{
+    display: flex;
+    gap: 25px;
+}
+
+
+.sectionArea{
+    width: 420px;
+    height: 40px;
+}
+
+.DepositoNome{
+    display: flex;
+    gap: 8px;
+}
+
+.Deposito{
+    font-size: 20px;
+}
+
+.mainDeposito{
+    display: flex;
+    gap: 45px;
+    flex-direction: column;
+}
