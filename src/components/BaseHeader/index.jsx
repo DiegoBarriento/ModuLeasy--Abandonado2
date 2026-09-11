@@ -18,8 +18,8 @@ export default function BaseHeader(){
                     <a>Meus Depositos</a>
                     <a>Cadastrar Conteiner</a> */}
                     <div className="icones_header">
-                        <span className="material-symbols-outlined" id="icone_header">notifications</span>
-                        <span className="material-symbols-outlined" id="icone_header" >person</span>
+                      <span className="material-symbols-outlined" id="icone_header">notifications</span>
+                      <NavLink to="/meu_perfil"><span className="material-symbols-outlined" id="icone_header" >person</span></NavLink>
                     </div>
                 </nav>
             </header>

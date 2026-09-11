@@ -8,6 +8,7 @@ import Catalogo from './components/Catalogo';
 import Financeiro from './components/Financeiro';
 import MeusConteiners from './components/MeusConteiners';
 import MeusDepositos from './components/MeusDepositos';
+import MeuPerfil from './components/MeuPerfil';
 
 export default function App() {
   const usuario = {tipoUsuario:'Locador', nome:'Juca Bala'}; // esses dadso depois vão ser pegos pelo local roste
@@ -23,6 +24,7 @@ export default function App() {
           <Route path="minhas_locacoes" element={<MinhasLocacoes/>}/>
           <Route path="meus_conteiners" element={<MeusConteiners/>}/>
           <Route path="meus_depositos" element={<MeusDepositos/>}/>
+          <Route path="meu_perfil" element={<MeuPerfil/>}/>
         </Route>
       </Routes>
     </BrowserRouter>
