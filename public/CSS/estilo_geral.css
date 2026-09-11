@@ -6,6 +6,8 @@
 @import url(detalhes_locacao.css);
 @import url(cadastrar_conteiner.css);
 @import url(deposito.css);
+@import url(catalogo_locatario.css);
+@import url(locacoes_locatario.css);
 /* impor para todos os arquivos css aqui, para facilitar o Import do Main e APP .jsx*/
 
 :root {

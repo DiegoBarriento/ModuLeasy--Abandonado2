@@ -7,6 +7,8 @@ import '../public/CSS/detalhes_locacao.css'
 import '../public/CSS/estilo_cadastro&login.css'
 import '../public/CSS/estilo_geral.css'
 import '../public/CSS/deposito.css'
+import '../public/CSS/locacoes_locatario.css'
+import '../public/CSS/catalogo_locatario.css'
 // import de Css
 
 import App from './App.jsx'

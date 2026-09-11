@@ -11,7 +11,7 @@ import MeusDepositos from './components/MeusDepositos';
 import MeuPerfil from './components/MeuPerfil';
 
 export default function App() {
-  const usuario = {tipoUsuario:'Locador', nome:'Juca Bala'}; // esses dadso depois vão ser pegos pelo local roste
+  const usuario = {tipoUsuario:'Locatario', nome:'Juca Bala'}; // esses dadso depois vão ser pegos pelo local roste
   const tipoUsuario = usuario.tipoUsuario;
   return(
     <BrowserRouter>
