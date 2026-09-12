@@ -52,7 +52,7 @@ export default function CadastrarContainer(){
                                 </div>
 
                                 <div className="input_grupo">
-                                    <label>PESO MAXIMO DO CONTAINER</label>
+                                    <label>Carga Maxima</label>
                                     <input type="text"/>
                                 </div>
 
@@ -113,6 +113,11 @@ export default function CadastrarContainer(){
                                             </label>    
                                         </div>
                                     </details>
+                                </div>
+
+                                <div className="input_grupo">
+                                    <label>Tara</label>
+                                    <input type="number"/>
                                 </div>
                             </div>
                         </section>
