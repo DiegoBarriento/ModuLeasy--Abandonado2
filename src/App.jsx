@@ -15,7 +15,7 @@ export default function App() {
   const tipoUsuario = usuario.tipoUsuario;
   return(
     <BrowserRouter>
-      <Routes>
+      <Routes> {/* Caso queram testar um,a pagina que não tem navegação feita, não esqueçam de criar um path e colocalolo corratamente */}
         <Route path="/cadastro_login" element={<CadastroLoginUsuario />}/>
         <Route path="/" element={<BaseHeader />}>
           {tipoUsuario === "Locador" ? <Route index element={<Financeiro/>}/> : <Route index element={<Catalogo/>}/>}
