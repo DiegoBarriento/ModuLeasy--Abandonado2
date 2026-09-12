@@ -1,7 +1,9 @@
 export default function Financeiro(){
     return(
         <>
-            <div>Teste Financeiro</div>
+            <main>
+                <div>Teste Financeiro</div>
+            </main>
         </>
     )
 }

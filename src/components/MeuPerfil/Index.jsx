@@ -2,7 +2,7 @@ export default function MeuPerfil(){
     return(
         <>
             <main>
-             <h1>Meu Perfil</h1>
+                <h1>Meu Perfil</h1>
             
                 <section ClassName="perfil-card">
                     <div ClassNameName="card-header">

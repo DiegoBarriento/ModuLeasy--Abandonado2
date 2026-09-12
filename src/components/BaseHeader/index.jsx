@@ -23,9 +23,7 @@ export default function BaseHeader(){
                     </div>
                 </nav>
             </header>
-            <main>
-                <Outlet/>
-            </main>
+            <Outlet/>
         </>
     )
 }
