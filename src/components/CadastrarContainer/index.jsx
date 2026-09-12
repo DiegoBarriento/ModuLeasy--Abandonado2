@@ -137,18 +137,43 @@ export default function CadastrarContainer(){
                             </div>
                             <div className="termos_aluguel">
                                 <div className="input_grupo">
-                                        <label>Valor doContainer</label>
+                                        <label>Valor do Container</label>
                                         <input type="number" min="0.00" />
                                 </div>
                                 
                                 <div className="input_grupo">
-                                        <label>CNPJ DO FABRICANTE</label>
+                                        <label>Porcentagem da Multa</label>
                                         <input type="number"/>
                                 </div>
                                 
                                 <div className="input_grupo">
-                                        <label>CNPJ DO FABRICANTE</label>
-                                        <input type="number"/>
+                                    <label>Tipos de Aluguel</label>
+                                    <details className="multiselect">
+                                        <summary className="multiselect_titulo">
+                                            <span className="material-symbols-outlined">add</span>
+                                        </summary>
+                                        <div className="multiselect_opcoes">    
+                                            <label>
+                                            <input type="checkbox" name="componentes[]" value="tipo1" /> 
+                                            tipo1
+                                            </label> 
+                                            
+                                            <label>
+                                            <input type="checkbox" name="componentes[]" value="tipo2" /> 
+                                            tipo2
+                                            </label> 
+                                            
+                                            <label>
+                                            <input type="checkbox" name="componentes[]" value="tipo3" /> 
+                                            tipo3
+                                            </label> 
+                                            
+                                            <label>
+                                            <input type="checkbox" name="componentes[]" value="tipo4" /> 
+                                            tipo4
+                                            </label>    
+                                        </div>
+                                    </details>
                                 </div>
                             </div>
                         </section>
