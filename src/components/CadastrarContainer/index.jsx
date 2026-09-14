@@ -154,23 +154,33 @@ export default function CadastrarContainer(){
                                         </summary>
                                         <div className="multiselect_opcoes">    
                                             <label>
-                                            <input type="checkbox" name="componentes[]" value="tipo1" /> 
-                                            tipo1
+                                            <input type="checkbox" name="componentes[]" value="Diario" /> 
+                                            Diario
                                             </label> 
                                             
                                             <label>
-                                            <input type="checkbox" name="componentes[]" value="tipo2" /> 
-                                            tipo2
+                                            <input type="checkbox" name="componentes[]" value="Semestral" /> 
+                                            Semestral
                                             </label> 
                                             
                                             <label>
-                                            <input type="checkbox" name="componentes[]" value="tipo3" /> 
-                                            tipo3
+                                            <input type="checkbox" name="componentes[]" value="Semanal" /> 
+                                            Semanal
                                             </label> 
                                             
                                             <label>
-                                            <input type="checkbox" name="componentes[]" value="tipo4" /> 
-                                            tipo4
+                                            <input type="checkbox" name="componentes[]" value="Mensal" /> 
+                                            Mensal
+                                            </label>
+
+                                            <label>
+                                            <input type="checkbox" name="componentes[]" value="Trimestral" /> 
+                                            Trimestral
+                                            </label>    
+
+                                            <label>
+                                            <input type="checkbox" name="componentes[]" value="Anual" /> 
+                                            Anual
                                             </label>    
                                         </div>
                                     </details>
