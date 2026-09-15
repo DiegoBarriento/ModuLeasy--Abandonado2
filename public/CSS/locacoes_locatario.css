@@ -40,7 +40,7 @@
     grid-template-columns: repeat(3, 1fr);
     gap: 25px;
     align-content: start;
-    margin-top: 50px;
+    margin: 50px 0px;
 }
 
 .card_locacao
@@ -50,7 +50,8 @@
 }
 
 .card_locacao img{
-    width: 40%;
+    width: 150px;
+    height: 150px;
     object-fit: cover;
     display: block;
     border-radius: 10px;
@@ -65,7 +66,7 @@
 }
 
 .info_locacao h1{
-    font-size: 35px;
+    font-size: 30px;
     margin: 5px 0;
     font-weight: bold;
 }

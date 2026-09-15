@@ -8,10 +8,12 @@
 
 h1{
     color: #1351AA;
+    margin-bottom: 35px;
 }
 
 h2{
     color: #1351AA;
+    margin: 20px 0px;
 }
 
 h3
@@ -28,9 +30,6 @@ h3
 main
 {
     flex-direction: column;
-}
-main  h1 {
-    margin-bottom: 15px;
 }
 .filtro_conteiner
 {
