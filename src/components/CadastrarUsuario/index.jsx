@@ -117,7 +117,7 @@ export default function CadastrarUsuario(){
     }
 
     function btnAncora_click(){
-        navegador('/', {state: {status:"LoginUsuario"}}) //trocar '/' quando a gentar as pagian corretamente; vai para o caminho dito levando a variaveis, como se fosse numa query string, para a proxima pagina, para pegar os dados use o import 'Location'  
+        navegador('/cadastro_login', {state: {status:"LoginUsuario"}}) //trocar '/' quando a gentar as pagian corretamente; vai para o caminho dito levando a variaveis, como se fosse numa query string, para a proxima pagina, para pegar os dados use o import 'Location'  
     }
 
     return(

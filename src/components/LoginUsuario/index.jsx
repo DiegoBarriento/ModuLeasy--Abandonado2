@@ -37,11 +37,11 @@ export default function LoginUsuario(){
     }
 
     function btnAncora_senha_click(){
-        navegador('/', {state: {status:"EsqueciSenha"}}) //trocar '/' quando a gentar as pagian corretamente; vai para o caminho dito levando a variaveis, como se fosse numa query string, para a proxima pagina, para pegar os dados use o import 'Location'  
+        navegador('/cadastro_login', {state: {status:"EsqueciSenha"}}) //trocar '/' quando a gentar as pagian corretamente; vai para o caminho dito levando a variaveis, como se fosse numa query string, para a proxima pagina, para pegar os dados use o import 'Location'  
     }
 
     function btnAncora_cadastro_click(){
-        navegador('/', {state: {status:"CadastrarUsuario"}}) //trocar '/' quando a gentar as pagian corretamente; vai para o caminho dito levando a variaveis, como se fosse numa query string, para a proxima pagina, para pegar os dados use o import 'Location'  
+        navegador('/cadastro_login', {state: {status:"CadastrarUsuario"}}) //trocar '/' quando a gentar as pagian corretamente; vai para o caminho dito levando a variaveis, como se fosse numa query string, para a proxima pagina, para pegar os dados use o import 'Location'  
     }
     return(
         <>

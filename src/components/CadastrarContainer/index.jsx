@@ -3,7 +3,7 @@ export default function CadastrarContainer(){
     return(
         <>
             <main className="cadastrar_container">
-                <h1>Cadastrar Container</h1>
+                <h1>Cadastrar Contêiner</h1>
                     <div className="cadastro_container">
 
                         <section className="parte_cadastro">
