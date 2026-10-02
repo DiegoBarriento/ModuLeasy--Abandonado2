@@ -47,6 +47,7 @@ export default function Cadastro(){
             ).then(function (resposta) {
             if (resposta.status === 200 && resposta.data) {
                 console.log(resposta.data);
+                alert('Conta criada com sucesso! Você já pode fazer login.');
                 // A resposta veio SEM erros
             } 
             })

@@ -4,6 +4,9 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 
 export default function Catalogo(){
+    const usuario = localStorage.getItem('usuario') ? JSON.parse(localStorage.getItem('usuario')) : null;
+
+
     const[tipos_conteiner, setTiposConteiner] = useState([]);
     const[tamanhos_conteiner, setTamanhosConteiner] = useState([]);
     const[tipos_aluguel, setTiposAluguel] = useState([]);
