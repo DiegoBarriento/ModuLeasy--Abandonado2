@@ -203,64 +203,55 @@ INSERT INTO locatario (
     nm_email_locatario,
     nm_senha_locatario,
     nm_locatario,
-    cd_cpf_locatario,
-    cd_cnpj_locatario
+    cd_cpf_cnpj_locatario
 ) VALUES
 (
     'obraalpha@email.com',
     MD5('123456'),
     'Construtora Alpha',
-    NULL,
     '12345678000101'
 ),
 (
     'construtora.beta@email.com',
     MD5('123456'),
     'Construtora Beta',
-    NULL,
     '23456789000102'
 ),
 (
     'eventos.gamma@email.com',
     MD5('123456'),
     'Eventos Gamma',
-    '11111111111',
-    NULL
+    '11111111111'
 ),
 (
     'varejo.delta@email.com',
     MD5('123456'),
     'Varejo Delta',
-    '22222222222',
-    NULL
+    '22222222222'
 ),
 (
     'industria.epsilon@email.com',
     MD5('123456'),
     'Indústria Epsilon',
-    NULL,
     '34567890000103'
 ),
 (
     'food.zeta@email.com',
     MD5('123456'),
     'Food Zeta',
-    '33333333333',
-    NULL
+    '33333333333'
 ),
 (
     'logistica.eta@email.com',
     MD5('123456'),
     'Logística Eta',
-    NULL,
     '45678901000104'
 ),
 (
     'startup.theta@email.com',
     MD5('123456'),
     'Startup Theta',
-    '44444444444',
-    '56789012000105'
+    '44444444444'
 );
 
 INSERT INTO conteiner (

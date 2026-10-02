@@ -48,16 +48,17 @@ call listarManutencoesConteiner('3');
 call listarFinalidadesConteiner('2');
 call listarTiposAluguelConteiner('5');
 call listarTamanhosTipoConteiner('1');
+call listarStatusConteiner('1');
 
 -- Locatario
 call listarEnderecosEntrega('obraalpha@email.com');
 call obterLocatario ('obraalpha@email.com', '123456');
-call listarConteineres();
+call listarConteineresLocador('contato@containerbrasil.com.br');
 
 -- Locador
 call listarConteineresLocador('contato@containerbrasil.com.br');
 call listarDepositosLocador('contato@modularsantos.com.br');
-call obterLocador ('contato@modularsantos.com.br', '123456');
+call obterUsuario ('obraalpha@email.com', '123456');
 call listarContratosLocador('contato@containerbrasil.com.br');
 call listarMovimentacoesLocador('contato@modularsantos.com.br');
 

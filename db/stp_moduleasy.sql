@@ -1,27 +1,38 @@
 Delimiter $$
 
-Drop procedure if exists obterLocatario$$
-Create procedure obterLocatario (pEmail varchar(150), pSenha varchar(150))
+Drop procedure if exists obterUsuario$$
+Create procedure obterUsuario(pEmail varchar(150), pSenha varchar(8))
 begin
-	Select cd_cpf_locatario, nm_locatario, nm_email_locatario, nm_senha_locatario from locatario 
-    where nm_email_locatario = pEmail and nm_senha_locatario = md5(pSenha);
-end$$
-
-Drop procedure if exists obterLocador$$
-Create procedure obterLocador (pEmail varchar(150), pSenha varchar(150))
-begin
-	Select cd_cnpj_locador, nm_locador, nm_email_locador, nm_senha_locador from locador 
-    where nm_email_locador = pEmail and nm_senha_locador = md5(pSenha);
+	declare vQtEmail int default 0;
+    
+    Select count(nm_email_locador) into vQtEmail from locador
+	where nm_email_locador = pEmail and nm_senha_locador = md5(pSenha);
+    
+	if (vQtEmail > 0) then
+		Select cd_cnpj_locador, nm_locador, nm_email_locador from locador
+		where nm_email_locador = pEmail and nm_senha_locador = md5(pSenha);
+	else
+        Select count(nm_email_locatario) into vQtEmail from locatario
+		where nm_email_locatario = pEmail and nm_senha_locatario = md5(pSenha);
+		
+		if (vQtEmail > 0) then
+			Select cd_cpf_cnpj_locatario, nm_email_locatario, nm_locatario from locatario
+			where nm_email_locatario = pEmail and nm_senha_locatario = md5(pSenha);
+		else
+			signal sqlstate '45000' set message_text = 'Email e/ou senha incorretos!';
+        end if;
+	end if;
+    
+    
 end$$
 
 Drop procedure if exists listarConteineres$$
 Create procedure listarConteineres()
 begin
 	Select c.cd_conteiner, c.dt_fabricacao_conteiner, c.cd_bic_conteiner, c.qt_tara_conteiner, c.qt_carga_maxima_conteiner, c.cd_tipo_conteiner, tc.nm_tipo_conteiner, c.cd_tamanho_conteiner, pc.nm_tamanho_conteiner,
-    c.cd_deposito, d.nm_deposito, d.cd_cep_deposito, d.nm_endereco_deposito, d.qt_raio_atuacao_deposito,
-    c.cd_cnpj_fabricante, f.nm_fabricante, l.nm_email_locador, l.cd_cnpj_locador, l.nm_locador
+    c.cd_deposito, d.nm_deposito, d.cd_cep_deposito, d.nm_endereco_deposito, d.qt_raio_atuacao_deposito, c.cd_cnpj_fabricante, f.nm_fabricante, l.nm_email_locador, l.cd_cnpj_locador, l.nm_locador
     from conteiner as c
-    INNER JOIN tamanho_conteiner as pc ON  c.cd_tamanho_conteiner = pc.cd_tamanho_conteiner
+    INNER JOIN tamanho_conteiner as pc ON c.cd_tamanho_conteiner = pc.cd_tamanho_conteiner
     INNER JOIN tipo_conteiner as tc ON c.cd_tipo_conteiner = tc.cd_tipo_conteiner
     INNER JOIN locador as l ON c.nm_email_locador = l.nm_email_locador
     LEFT JOIN deposito as d ON c.cd_deposito = d.cd_deposito
@@ -32,8 +43,25 @@ end$$
 Drop procedure if exists listarConteineresLocador$$
 Create procedure listarConteineresLocador(pLocador varchar(150))
 begin
-	Select cd_conteiner, dt_fabricacao_conteiner, cd_bic_conteiner, qt_tara_conteiner, qt_carga_maxima_conteiner, cd_tipo_conteiner, cd_tamanho_conteiner, cd_deposito, cd_cnpj_fabricante from conteiner
-    where nm_email_locador = pLocador;
+	Select c.cd_conteiner, c.dt_fabricacao_conteiner, c.cd_bic_conteiner, c.qt_tara_conteiner, c.qt_carga_maxima_conteiner, c.cd_tipo_conteiner, tc.nm_tipo_conteiner, c.cd_tamanho_conteiner, pc.nm_tamanho_conteiner,
+	c.cd_deposito, d.nm_deposito, d.cd_cep_deposito, d.nm_endereco_deposito, d.qt_raio_atuacao_deposito, c.cd_cnpj_fabricante, f.nm_fabricante, l.nm_email_locador, l.cd_cnpj_locador, l.nm_locador
+    from conteiner as c
+    INNER JOIN tamanho_conteiner as pc ON c.cd_tamanho_conteiner = pc.cd_tamanho_conteiner
+    INNER JOIN tipo_conteiner as tc ON c.cd_tipo_conteiner = tc.cd_tipo_conteiner
+    INNER JOIN locador as l ON c.nm_email_locador = l.nm_email_locador
+    INNER JOIN deposito as d ON c.cd_deposito = d.cd_deposito
+    INNER JOIN fabricante as f ON c.cd_cnpj_fabricante = f.cd_cnpj_fabricante
+    where c.nm_email_locador = pLocador
+    ORDER BY c.cd_conteiner;
+end$$
+
+Drop procedure if exists listarStatusConteiner$$
+Create procedure listarStatusConteiner(pConteiner INT)
+begin
+	Select s.cd_status, s.nm_status, s.cd_tipo_status, ts.nm_tipo_status from status as s
+    INNER JOIN status_conteiner as sc ON s.cd_status = sc.cd_status
+    INNER JOIN tipo_status as ts ON s.cd_tipo_status = ts.cd_tipo_status
+    where cd_conteiner = pConteiner;
 end$$
 
 Drop procedure if exists listarDepositosLocador$$
@@ -404,28 +432,22 @@ begin
 end$$
 
 Drop procedure if exists criarLocatario$$
-Create procedure criarLocatario(pEmail varchar(150), pNome varchar(150), pSenha varchar(14), pCpf varchar(150), pCnpj varchar(150))
+Create procedure criarLocatario(pEmail varchar(150), pNome varchar(150), pSenha varchar(14), pCnpjCpf varchar(150))
 begin
-	Declare vQtCnpj int default 0;
-    Declare vQtCpf int default 0;
+    Declare vQtpCnpjCpf int default 0;
     Declare vQtEmail int default 0;
     
-    Select count(cd_cpf_locatario) into vQtCpf from locatario where cd_cpf_locatario = pCpf;
-    Select count(cd_cnpj_locatario) into vQtCnpj from locatario where cd_cnpj_locatario = pCnpj;
+    Select count(cd_cpf_locatario) into vQtpCnpjCpf from locatario where cd_cpf_cnpj_locatario = pCnpjCpf;
     Select count(nm_email_locatario) into vQtEmail from locatario where nm_email_locatario = pEmail;
 
-	if (vQtCpf > 0) then
-		Signal sqlstate '45000' set message_text = 'Cpf já cadastrado!';
+	if (vQtpCnpjCpf > 0) then
+		Signal sqlstate '45000' set message_text = 'Cpf/Cnpj já cadastrado!';
 	else
-		if (vQtCnpj > 0) then
-			Signal sqlstate '45000' set message_text = 'Cnpj já cadastrado!';
-        else
-			if (vQtEmail > 0) then
-				Signal sqlstate '45000' set message_text = 'Email já cadastrado!';
-			else
-				Insert into locatario (nm_locatario, nm_email_locatario, nm_senha_locatario, cd_cnpj_locatario, cd_cpf_locatario) 
-				values(pNome, pEmail, md5(pSenha), pCnpj, pCpf);
-            end if;
+		if (vQtEmail > 0) then
+			Signal sqlstate '45000' set message_text = 'Email já cadastrado!';
+		else
+			Insert into locatario (nm_locatario, nm_email_locatario, nm_senha_locatario, cd_cpf_cnpj_locatario) 
+			values(pNome, pEmail, md5(pSenha), pCnpjCpf);
         end if;
     end if;
 end$$

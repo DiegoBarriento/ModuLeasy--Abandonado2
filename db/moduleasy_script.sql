@@ -29,8 +29,7 @@ CREATE TABLE locatario (
     nm_email_locatario VARCHAR(150) NOT NULL,
     nm_senha_locatario VARCHAR(150) NOT NULL,
     nm_locatario VARCHAR(150) NOT NULL,
-    cd_cpf_locatario VARCHAR(14) UNIQUE,
-    cd_cnpj_locatario VARCHAR(14) UNIQUE, 
+    cd_cpf_cnpj_locatario VARCHAR(14) UNIQUE,
 
     CONSTRAINT pk_locatario PRIMARY KEY (nm_email_locatario)
 ) ENGINE=InnoDB;
