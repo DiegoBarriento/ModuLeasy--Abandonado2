@@ -437,7 +437,7 @@ begin
     Declare vQtpCnpjCpf int default 0;
     Declare vQtEmail int default 0;
     
-    Select count(cd_cpf_locatario) into vQtpCnpjCpf from locatario where cd_cpf_cnpj_locatario = pCnpjCpf;
+    Select count(cd_cpf_cnpj_locatario) into vQtpCnpjCpf from locatario where cd_cpf_cnpj_locatario = pCnpjCpf;
     Select count(nm_email_locatario) into vQtEmail from locatario where nm_email_locatario = pEmail;
 
 	if (vQtpCnpjCpf > 0) then

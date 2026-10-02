@@ -3,12 +3,13 @@ class Locador extends Banco {
 	public $Email;
 	public $Cnpj;
 	public $Nome;
+	public $TipoUsuario = 'Locador'; // ve depois
 
-	
 	public function __construct($email = null, $cnpj = null, $nome = null) {
 		$this->Email = $email;
 		$this->Cnpj = $cnpj;
 		$this->Nome = $nome;
+		$this->TipoUsuario = 'Locador';
 	}
 
 	public static function obterLocador($email, $senha){

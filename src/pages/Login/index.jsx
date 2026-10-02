@@ -1,7 +1,53 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 import styles from './index.module.css';
+import axios from 'axios';
 
 export default function Login(){
+    const [email, setEmail] = useState('');
+    const [senha, setSenha] = useState('');
+
+    const navigate = useNavigate();
+
+    function btnEntrar(){
+        if(email === ""){
+            return alert('O campo de email é obrigatório!')
+        }
+        if(senha === ""){
+            return alert('O campo de senha é obrigatório!')
+        }
+
+        axios.post("http://localhost/ModuLeasy/api/acessarConta.php", 
+        {
+            /* conteudo do corpo JSON da requisicão */
+            'email': email.trim(),
+            'senha': senha.trim()
+        },
+        {
+            withCredentials: true,
+        }
+        ).then(function (resposta) {
+        if (resposta.status === 200 && resposta.data) {
+            console.log(resposta.data);
+            let usuario = resposta.data.usuario;
+            localStorage.setItem('usuario', JSON.stringify(usuario));
+            if(usuario.TipoUsuario === 'Locador'){
+                navigate('/meus_conteineres'); // Mudar para o dashboard depois
+            }
+            else if(usuario.TipoUsuario === 'Locatario'){
+                navigate('/catalogo'); // mudar para meus alugueis depois
+            }
+            // A resposta veio SEM erros
+        } 
+        })
+        .catch(function (error) {
+        console.warn(error);
+        // O que fazer se der erro na requisição
+        })
+        .finally(function () {
+        // O que fazer independente de ter dado erro ou não
+        });
+    }
     return(
         <>
             <main className={`${styles.pagina_login} ${styles.telas_sem_menu}`}>
@@ -51,7 +97,7 @@ export default function Login(){
 
                                     <div className={styles.campo_icone}>
                                         <span className="material-symbols-outlined">mail</span>
-                                        <input type="email" placeholder="voce@exemplo.com" />
+                                        <input type="email" placeholder="voce@exemplo.com" value={email} onChange={(e) => setEmail(e.target.value)} />
                                     </div>
                                 </div>
 
@@ -60,7 +106,7 @@ export default function Login(){
 
                                     <div className={styles.campo_icone}>
                                         <span className="material-symbols-outlined">lock</span>
-                                        <input type="password" placeholder="••••••••" />
+                                        <input type="password" placeholder="••••••••" value={senha} onChange={(e) => setSenha(e.target.value)} />
                                     </div>
 
                                     <div className={styles.link_direita}>
@@ -68,7 +114,7 @@ export default function Login(){
                                     </div>
                                 </div>
 
-                                <button className="botao botao_escuro completo">Entrar</button>
+                                <button className="botao botao_escuro completo" onClick={btnEntrar}>Entrar</button>
                             </div>
                         </div>
 

@@ -36,10 +36,10 @@ export default function Cadastro(){
             axios.post("http://localhost/ModuLeasy/api/criarLocatario.php", 
             {
                 /* conteudo do corpo JSON da requisicão */
-                'email': email,
-                'cnpj/cpf': cpfCnpj,
-                'nome': nome,
-                'senha': senha
+                'email': email.trim(),
+                'cnpj_cpf': cpfCnpj.trim(),
+                'nome': nome.trim(),
+                'senha': senha.trim()
             },
             {
                 withCredentials: true,
@@ -62,10 +62,10 @@ export default function Cadastro(){
             axios.post("http://localhost/ModuLeasy/api/criarLocador.php", 
             {
                 /* conteudo do corpo JSON da requisicão */
-                'email': email,
-                'cnpj': cpfCnpj,
-                'nome': nome,
-                'senha': senha
+                'email': email.trim(),
+                'cnpj': cpfCnpj.trim(),
+                'nome': nome.trim(),
+                'senha': senha.trim()
             },
             {
                 withCredentials: true,

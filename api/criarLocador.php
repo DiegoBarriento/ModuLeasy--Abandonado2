@@ -18,23 +18,23 @@ if ($metodo != 'POST')
 	echo json_encode(['mensagem' => 'Método Inválido']); 
 	return;
 }
-
-$corpo = json_decode(file_get_contents('php://input'), true);
-if (!validaCorpoRequisicao($corpo)) {
-	return;
-}
-
-$chaves = ['email', 'cnpj', 'nome', 'senha'];
-if (!validaChaves($corpo, $chaves)) {
-	return;
-}
-
-$email = $corpo['email'];
-$cnpj = $corpo['cnpj'] === '' ? null : $corpo['cnpj'];
-$nome = $corpo['nome'];
-$senha = $corpo['senha'];
-
 try {
+
+	$corpo = json_decode(file_get_contents('php://input'), true);
+	if (!validaCorpoRequisicao($corpo)) {
+		return;
+	}
+
+	$chaves = ['email', 'cnpj', 'nome', 'senha'];
+	if (!validaChaves($corpo, $chaves)) {
+		return;
+	}
+
+	$email = $corpo['email'];
+	$cnpj = $corpo['cnpj'] === '' ? null : $corpo['cnpj'];
+	$nome = $corpo['nome'];
+	$senha = $corpo['senha'];
+
 	LocadorController::criarLocador($email, $cnpj, $nome, $senha);
 	http_response_code(200);
 	echo json_encode(['status' => 'true']);

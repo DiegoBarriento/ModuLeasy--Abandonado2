@@ -1,7 +1,14 @@
 import { Link, Outlet } from 'react-router-dom';
 
 export default function MenuLateral(){
-    const tipo_usuario = 'locatario';
+    const usuario = localStorage.getItem('usuario') ? JSON.parse(localStorage.getItem('usuario')) : null;
+    const nomeUsuario = usuario ? usuario.Nome : '';
+    const nomeSigla = nomeUsuario ? nomeUsuario.slice(0, 1).toUpperCase() : '';
+
+    function encerrarSessao(){
+        localStorage.removeItem('usuario');
+    }
+
     return(
         <>
             <div className="menu_lateral">
@@ -11,7 +18,7 @@ export default function MenuLateral(){
                 </div>
 
                 <div className="navegacao_menu">
-                    {tipo_usuario === 'locador' ? (
+                    {usuario.TipoUsuario === 'locador' ? (
                         <>
                             <Link className="item_menu" to="/painel">
                                 <span className="material-symbols-outlined">dashboard</span>
@@ -49,18 +56,18 @@ export default function MenuLateral(){
                 </div>
 
                 <div className="rodape_menu">
-                    <Link className="item_menu" to="/">
+                    <Link className="item_menu" to="/" onClick={encerrarSessao}>
                         <span className="material-symbols-outlined">logout</span>
                         <p className="texto_menu">Sair</p>
                     </Link>
 
                     <div className="usuario_info">
                         <div className="avatar">
-                            <b>AC</b>
+                            <b></b>
                         </div>
 
                         <p className="nome_usuario">
-                            Alex Costa
+                            {nomeUsuario}
                             <small>Minha conta</small>
                         </p>
                     </div>

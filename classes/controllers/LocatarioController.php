@@ -11,8 +11,8 @@ class LocatarioController {
         return $locatario;
     }
 
-    public static function criarLocatario($email, $cnpj, $cpf, $nome, $senha){
-        Locatario::criarLocatario($email, $cnpj, $cpf, $nome, $senha);
+    public static function criarLocatario($email, $cnpj_cpf, $nome, $senha){
+        Locatario::criarLocatario($email, $cnpj_cpf, $nome, $senha);
     }
 
     public static function atualizarLocatario($email, $cnpj, $cpf, $nome){

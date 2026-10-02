@@ -1,16 +1,16 @@
 <?php 
 class Locatario extends Banco {
 	public $Email;
-	public $Cnpj;
-	public $Cpf;
+	public $Cnpj_Cpf;
 	public $Nome;
+ 	public $TipoUsuario = 'Locatario'; // ve depois
 
 	
-	public function __construct($email = null, $cnpj = null, $cpf = null, $nome = null) {
+	public function __construct($email = null, $cnpj_cpf = null, $nome = null) {
 		$this->Email = $email;
-		$this->Cnpj = $cnpj;
-		$this->Cpf = $cpf;
+		$this->Cnpj_Cpf = $cnpj_cpf;
 		$this->Nome = $nome;
+		$this->TipoUsuario = 'Locatario';
 	}
 
 	public static function obterLocatario($email, $senha){
@@ -21,13 +21,12 @@ class Locatario extends Banco {
 		return self::Consultar('obterLocatario', $parametros);
 	}
 
-	public static function criarLocatario($email, $cnpj, $cpf, $nome, $senha){
+	public static function criarLocatario($email, $cnpj_cpf, $nome, $senha){
 		$parametros = [
 			'pEmail' => $email,
 			'pNome' => $nome,
 			'pSenha' => $senha,
-			'pCpf' => $cpf,
-			'pCnpj' => $cnpj
+			'pCnpjCpf' => $cnpj_cpf,
 		];
 		return self::Executar('criarLocatario', $parametros);
 	}

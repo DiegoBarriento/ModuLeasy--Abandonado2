@@ -1,15 +1,14 @@
 <?php
-$ENV = $_SERVER['HTTP_HOST'] === 'https://moduleasy'
+$ENV = $_SERVER['HTTP_HOST'] === 'https://www.moduleasy.com'
 	? 'production'
 	: 'development';
 
 $CORS_ORIGINS = [
 	'development' => [
-		'http://localhost:5174',
 		'http://localhost:5173',
 	],
 	'production' => [
-		'https://moduleasy',
+		'https://www.moduleasy.com',
 	],
 ];
 

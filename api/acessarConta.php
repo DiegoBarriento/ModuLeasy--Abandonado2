@@ -17,38 +17,28 @@ if ($metodo != 'POST')
 	http_response_code(400); 
 	echo json_encode(['mensagem' => 'Método Inválido']); 
 	return;
-}
+	}
 	
 try {
-	$corpo = json_decode(file_get_contents('php://input'), true);
+	$corpo = json_decode(file_get_contents("php://input"), true);
 	if (!validaCorpoRequisicao($corpo)) {
 		return;
 	}
-
-	$chaves = ['email', 'cnpj_cpf', 'nome', 'senha'];
+	$chaves = ['email','senha'];
 	if (!validaChaves($corpo, $chaves)) {
 		return;
 	}
-
 	$email = $corpo['email'];
-	$cnpj_cpf = $corpo['cnpj_cpf'] === '' ? null : $corpo['cnpj_cpf'];
-	$nome = $corpo['nome'];
 	$senha = $corpo['senha'];
 
-	LocatarioController::criarLocatario($email, $cnpj_cpf, $nome, $senha);
+	$resultado = UsuarioController::acessarConta($email, $senha);
+	$_SESSION['usuario'] = $resultado;
+	// $_SESSION['tipo'] = $resultado[1];
 	http_response_code(200);
-	echo json_encode(['status' => 'true']);
+	echo json_encode(['status' => 'true', 'usuario' => $resultado]);
 } catch (Exception $erro) {
-	$mensagemCompleta = $erro->getMessage();
-	if (strpos($mensagemCompleta, 'SQLSTATE') !== false && strpos($mensagemCompleta, '1644') !== false) {
-		$partes = explode(': ', $mensagemCompleta);
-		$mensagem = trim(end($partes));
-		$mensagem = substr($mensagem, 5);
-	} else {
-		$mensagem = $mensagemCompleta;
-		http_response_code(500);
-	}
-	echo json_encode(['status' => 'false', 'mensagem' => $mensagem]);
+	http_response_code(500);
+	echo json_encode(['status' => 'false']);
 }
 
 function validaCorpoRequisicao($corpo) {
@@ -63,20 +53,18 @@ function validaCorpoRequisicao($corpo) {
 
 function validaChaves($corpo, $campos) {
 	for ($i=0; $i < count($campos); $i++) { 
-		$campo = $campos[$i];
-		if (!array_key_exists($campo, $corpo))
+		if (!array_key_exists($campos[$i], $corpo))
 		{
 			http_response_code(400);
 			echo json_encode(['mensagem'=>'Dados incorretos. Verifique a documentação da API e tente novamente!']);
 			return false;
 		}
-		if (!in_array($campo, ['cnpj', 'cpf'], true) && ($corpo[$campo] === '' || $corpo[$campo] === null)){
+		if ($corpo[$campos[$i]] == ''){
 			http_response_code(400);
 			echo json_encode(['mensagem'=>'Dados incorretos. Verifique a documentação da API e tente novamente!']);
 			return false;
 		}
 	}
-
 	return true;
 }
 ?>
