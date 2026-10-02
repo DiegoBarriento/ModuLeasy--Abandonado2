@@ -1,10 +1,35 @@
 import { Link } from 'react-router-dom';
 import ItemListaMeusConteineres from '../../components/ItemListaMeusConteineres';
 import styles from './index.module.css';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
 
 export default function MeusConteineres(){
-    const usuario = JSON.parse(localStorage.getItem('usuario'));
-    // console.log(usuario.tipo_usuario);
+    const [conteineres, setConteineres] = useState([]);
+    const [status, setStatus] = useState([]);
+    const [filtros, setFiltros] = useState([]);
+
+    useEffect(() => {
+    axios.get("http://localhost/ModuLeasy/api/listarConteineresLocador.php", {
+    withCredentials: true,
+    })
+    .then(function (resposta) {
+    if (resposta.status === 200 && resposta.data) {
+        console.log(resposta.data);
+        setConteineres(resposta.data.conteineresLocador);
+        // A resposta veio SEM erros
+    } 
+    })
+    .catch(function (error) {
+    console.warn(error);
+    // O que fazer se der erro na requisição
+    })
+    .finally(function () {
+    // O que fazer independente de ter dado erro ou não
+    });
+
+    }, []);
+
     return(
         <>
             <main>
@@ -69,9 +94,10 @@ export default function MeusConteineres(){
                                 <span></span>
                             </li>
 
-                            <ItemListaMeusConteineres />
-                            <ItemListaMeusConteineres />
-                            <ItemListaMeusConteineres />
+                            {conteineres.map(function(conteiner){ return (
+                                <ItemListaMeusConteineres key={conteiner.Codigo} conteiner={conteiner}/>
+                            )})}
+                            
                         </ul>
                     </section>
                 </div>

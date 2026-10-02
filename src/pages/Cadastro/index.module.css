@@ -169,37 +169,30 @@
     background-color:var(--cor_1);
     padding:5px;
     border-radius:10px;
-    border:0;
-    margin:0;
 }
 
-.alternar_tipo_usuario label{
-    position:relative;
-    display:flex;
-    flex:1;
-    align-items:center;
-    justify-content:center;
+.alternar_tipo_usuario button{
+    border:0;
+    background-color:transparent;
     border-radius:8px;
     padding:10px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex:1;
     font-size:12px;
     color:var(--cor_2);
     font-weight:700;
     cursor:pointer;
 }
 
-.alternar_tipo_usuario input{
-    position:absolute;
-    opacity:0;
-}
-
-.alternar_tipo_usuario label:has(input:checked){
+.alternar_tipo_usuario button.selecionado{
     background-color:var(--cor_0);
     color:var(--cor_3);
 }
 
-.alternar_tipo_usuario label:has(input:focus-visible){
-    outline:2px solid var(--cor_3);
-    outline-offset:2px;
+.alternar_tipo_usuario button:hover{
+    transform:none;
 }
 
 .espaco_form {

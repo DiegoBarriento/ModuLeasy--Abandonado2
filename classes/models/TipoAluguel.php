@@ -13,8 +13,8 @@ class TipoAluguel extends Banco {
 		$this->PcMulta = $pcMulta;
 	}
 
-	public static function listarTiposAluguel() {
-		return  self::Consultar('listarTiposAluguel');
+	public static function listarTiposAluguel(){
+		return self::Consultar('listarTiposAluguel');
 	}
 }
 ?>

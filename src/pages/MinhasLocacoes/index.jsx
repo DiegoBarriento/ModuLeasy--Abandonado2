@@ -2,8 +2,6 @@ import { Link } from 'react-router-dom';
 import styles from './index.module.css';
 
 export default function MinhasLocacoes(){
-    const usuario = localStorage.getItem('usuario') ? JSON.parse(localStorage.getItem('usuario')) : null;
-    
     return(
         <>
             <main>

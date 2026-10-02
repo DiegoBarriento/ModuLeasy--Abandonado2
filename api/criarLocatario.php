@@ -18,24 +18,25 @@ if ($metodo != 'POST')
 	echo json_encode(['mensagem' => 'Método Inválido']); 
 	return;
 }
-	
+
+$corpo = json_decode(file_get_contents('php://input'), true);
+if (!validaCorpoRequisicao($corpo)) {
+	return;
+}
+
+$chaves = ['email', 'cnpj', 'cpf', 'nome', 'senha'];
+if (!validaChaves($corpo, $chaves)) {
+	return;
+}
+
+$email = $corpo['email'];
+$cnpj = $corpo['cnpj'] === '' ? null : $corpo['cnpj'];
+$cpf = $corpo['cpf'] === '' ? null : $corpo['cpf'];
+$nome = $corpo['nome'];
+$senha = $corpo['senha'];
+
 try {
-	$corpo = json_decode(file_get_contents('php://input'), true);
-	if (!validaCorpoRequisicao($corpo)) {
-		return;
-	}
-
-	$chaves = ['email', 'cnpj_cpf', 'nome', 'senha'];
-	if (!validaChaves($corpo, $chaves)) {
-		return;
-	}
-
-	$email = $corpo['email'];
-	$cnpj_cpf = $corpo['cnpj_cpf'] === '' ? null : $corpo['cnpj_cpf'];
-	$nome = $corpo['nome'];
-	$senha = $corpo['senha'];
-
-	LocatarioController::criarLocatario($email, $cnpj_cpf, $nome, $senha);
+	LocatarioController::criarLocatario($email, $cnpj, $cpf, $nome, $senha);
 	http_response_code(200);
 	echo json_encode(['status' => 'true']);
 } catch (Exception $erro) {

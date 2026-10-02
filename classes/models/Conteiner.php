@@ -71,6 +71,20 @@ class Conteiner extends Banco {
 		return self::Consultar('listarFinalidadesConteiner', $parametros);
 	}
 
+	public static function listarStatusConteiner($conteiner){
+		$parametros = [
+			'pConteiner' => $conteiner
+		];
+		return self::Consultar('listarStatusConteiner', $parametros);
+	}
+
+	public static function listarTiposAluguelConteiner($conteiner){
+		$parametros = [
+			'pConteiner' => $conteiner
+		];
+		return self::Consultar('listarTiposAluguelConteiner', $parametros);
+	}
+
 	public static function criarConteiner($locador, $dtFabricacaoConteiner, $bicConteiner, $taraConteiner, $cargaMaximaConteiner, $tipoConteiner, $tamanhoConteiner, 
 	$deposito, $fabricante){
 		$parametros = [
@@ -84,7 +98,7 @@ class Conteiner extends Banco {
 			'pDeposito' => $deposito,
 			'pFabricante' => $fabricante
 		];
-		self::Executar('criarConteiner', $parametros);
+		return self::ExecutarRetorno('criarConteiner', $parametros);
 	}
 
 	public static function atualizarConteiner($conteiner, $nvDtFabricacaoConteiner, $nvBicConteiner, $nvTaraConteiner, $nvCargaMaximaConteiner, $nvTipoConteiner, $nvTamanhoConteiner, 
@@ -100,7 +114,7 @@ class Conteiner extends Banco {
 			'pNvDeposito' => $nvDeposito,
 			'pNvFabricante' => $nvFabricante
 		];
-		self::Executar('atualizarConteiner', $parametros);
+		return self::ExecutarRetorno('atualizarConteiner', $parametros);
 	}
 
 	public static function deletarConteiner($conteiner){

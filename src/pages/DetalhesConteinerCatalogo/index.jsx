@@ -1,7 +1,29 @@
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import styles from './index.module.css';
+import { useEffect, useState } from 'react';
 
 export default function DetalhesConteinerCatalogo(){
+    const location = useLocation();
+    const conteiner = location?.state?.conteiner ?? {};
+    const dados = location?.state?.dados ?? [];
+    const finalidades = dados[0] ?? [];
+    const tiposAluguel = dados[2] ?? [];
+    const componentes = dados[3] ?? [];
+    const aluguelBase = tiposAluguel.find((aluguel) => aluguel.Nome === 'Mensal') ?? tiposAluguel[0];
+    const nomeConteiner = `${conteiner?.Tipo?.Nome ?? ''} ${conteiner?.Tamanho?.Nome ?? ''}`.trim() || 'Contêiner';
+    const nomeLocador = conteiner?.Locador?.Nome ?? 'Locador';
+    const iniciaisLocador = nomeLocador.split(' ').filter(Boolean).slice(0, 2).map((nome) => nome[0]).join('').toUpperCase();
+
+    const [estado, setEstado] = useState('');
+    const [cidade, setCidade] = useState('');
+    const [bairro, setBairro] = useState('');
+    const [rua, setRua] = useState('');
+    const [numeroEndereco, setNumeroEndereco] = useState('');
+    const [complemento, setComplemento] = useState('');
+
+    useEffect(() =>{
+
+    },[])
     return(
         <>
             <main>
@@ -12,11 +34,11 @@ export default function DetalhesConteinerCatalogo(){
                     </Link>
 
                     <div className="cabecalho_alt">
-                        <h1>Studio Modular 20'</h1>
+                        <h1>{nomeConteiner}</h1>
 
                         <Link to="/perfil-publico" className="linha_usuario">
-                            <span className="avatar_usuario">MR</span>
-                            <strong>Marina Reis</strong>
+                            <span className="avatar_usuario">{iniciaisLocador || 'LO'}</span>
+                            <strong>{nomeLocador}</strong>
                         </Link>
                     </div>
 
@@ -24,20 +46,20 @@ export default function DetalhesConteinerCatalogo(){
                         <div className={styles.area_fotos_info}>
                             <div>
                                 <div className={styles.foto_principal}>
-                                    <img src="/images/conteiner.png" alt="Studio Modular 20 pés" />
+                                    <img src="/images/conteiner.png" alt={nomeConteiner} />
                                 </div>
 
                                 <div className={styles.miniaturas}>
                                     <label>
-                                        <img src="/images/conteiner_2.png" alt="Studio Modular 20 pés" />
+                                        <img src="/images/conteiner_2.png" alt={nomeConteiner} />
                                     </label>
 
                                     <label>
-                                        <img src="/images/conteiner_2.png" alt="Studio Modular 20 pés" />
+                                        <img src="/images/conteiner_2.png" alt={nomeConteiner} />
                                     </label>
 
                                     <label htmlFor="pop_galeria">
-                                        <img src="/images/conteiner.png" alt="Studio Modular 20 pés" />
+                                        <img src="/images/conteiner.png" alt={nomeConteiner} />
                                         <span className={styles.mais_fotos}>+2 fotos</span>
                                     </label>
                                 </div>
@@ -54,42 +76,42 @@ export default function DetalhesConteinerCatalogo(){
                                 <div className={styles.info_grid}>
                                     <div>
                                         <p>Código BIC</p>
-                                        <strong>MOD-001</strong>
+                                        <strong>{conteiner.Bic ?? 'Não informado'}</strong>
                                     </div>
 
                                     <div>
                                         <p>Nome do fabricante</p>
-                                        <strong>ModuLeasy Indústria</strong>
+                                        <strong>{conteiner.Fabricante?.Nome ?? 'Não informado'}</strong>
                                     </div>
 
                                     <div>
                                         <p>CNPJ do fabricante</p>
-                                        <strong>12.345.678/0001-90</strong>
+                                        <strong>{conteiner.Fabricante?.Cnpj ?? 'Não informado'}</strong>
                                     </div>
 
                                     <div>
                                         <p>Data de fabricação</p>
-                                        <strong>15/03/2024</strong>
+                                        <strong>{conteiner.Dtfabricacao ?? 'Não informado'}</strong>
                                     </div>
 
                                     <div>
                                         <p>Tipo</p>
-                                        <strong>High Cube</strong>
+                                        <strong>{conteiner.Tipo?.Nome ?? 'Não informado'}</strong>
                                     </div>
 
                                     <div>
                                         <p>Tamanho</p>
-                                        <strong>20 pés</strong>
+                                        <strong>{conteiner.Tamanho?.Nome ?? 'Não informado'}</strong>
                                     </div>
 
                                     <div>
                                         <p>Carga máxima</p>
-                                        <strong>28.200 kg</strong>
+                                        <strong>{conteiner.Cargamaxima != null ? `${conteiner.Cargamaxima} kg` : 'Não informado'}</strong>
                                     </div>
 
                                     <div>
                                         <p>Tara</p>
-                                        <strong>2.230 kg</strong>
+                                        <strong>{conteiner.Tara != null ? `${conteiner.Tara} kg` : 'Não informado'}</strong>
                                     </div>
                                 </div>
 
@@ -103,8 +125,9 @@ export default function DetalhesConteinerCatalogo(){
 
                                     <div className={styles.desce_caixa_conteudo}>
                                         <ul className={styles.lista_especificacoes}>
-                                            <li><strong>Moradia</strong></li>
-                                            <li><strong>Home office</strong></li>
+                                            {finalidades.map((finalidade, index) => (
+                                                <li key={finalidade.Codigo ?? index}><strong>{finalidade.Nome}</strong></li>
+                                            ))}
                                         </ul>
                                     </div>
                                 </div>
@@ -119,20 +142,12 @@ export default function DetalhesConteinerCatalogo(){
 
                                     <div className={styles.desce_caixa_conteudo}>
                                         <ul className={styles.lista_especificacoes}>
-                                            <li>
-                                                <p className="etiqueta">Estrutural</p>
-                                                <strong>Isolamento térmico</strong>
-                                            </li>
-
-                                            <li>
-                                                <p className="etiqueta">Estrutural</p>
-                                                <strong>Banheiro</strong>
-                                            </li>
-
-                                            <li>
-                                                <p className="etiqueta">Estrutural</p>
-                                                <strong>Energia elétrica</strong>
-                                            </li>
+                                            {componentes.map((componente, index) => (
+                                                <li key={componente.Codigo ?? index}>
+                                                    <p className="etiqueta">{componente.Categoria?.Nome ?? 'Componente'}</p>
+                                                    <strong>{componente.Nome}</strong>
+                                                </li>
+                                            ))}
                                         </ul>
                                     </div>
                                 </div>
@@ -151,12 +166,14 @@ export default function DetalhesConteinerCatalogo(){
                                         <label>Estado</label>
 
                                         <div className="input_geral">
-                                            <select>
-                                                <option>SP</option>
-                                                <option>RJ</option>
-                                                <option>MG</option>
-                                                <option>PR</option>
-                                                <option>SC</option>
+                                            <select value={estado} onChange={(e)=> setEstado(e.target.value)}>
+                                                <option value="-1">Selecione</option> 
+
+                                                <option value="0">SP</option>
+                                                <option value="1">RJ</option>
+                                                <option value="2">MG</option>
+                                                <option value="3">PR</option>
+                                                <option value="4">SC</option>
                                             </select>
 
                                             <span className="material-symbols-outlined">expand_more</span>
@@ -165,27 +182,27 @@ export default function DetalhesConteinerCatalogo(){
 
                                     <div className="campo">
                                         <label>Cidade</label>
-                                        <input type="text" value="São Paulo" readOnly />
+                                        <input type="text" value={cidade} onChange={(e) => setCidade(e.target.value)}  />
                                     </div>
 
                                     <div className="campo">
                                         <label>Bairro</label>
-                                        <input type="text" value="Vila Mariana" readOnly />
+                                        <input type="text" value={bairro} onChange={(e) => setBairro(e.target.value)}  />
                                     </div>
 
                                     <div className="campo">
                                         <label>Rua</label>
-                                        <input type="text" value="Rua Domingos de Morais" readOnly />
+                                        <input type="text" value={rua} onChange={(e) => setRua(e.target.value)}  />
                                     </div>
 
                                     <div className="campo">
                                         <label>Número</label>
-                                        <input type="text" value="1200" readOnly />
+                                        <input type="text" value={numeroEndereco} onChange={(e) => setNumeroEndereco(e.target.value)}  />
                                     </div>
 
                                     <div className="campo">
                                         <label>Complemento</label>
-                                        <input type="text" placeholder="Ex.: Apto 52" />
+                                        <input type="text" placeholder="Ex.: Apto 52" value={complemento} onChange={(e) => setComplemento(e.target.value)} />
                                     </div>
                                 </div>
 
@@ -224,9 +241,9 @@ export default function DetalhesConteinerCatalogo(){
 
                                         <div className="input_geral">
                                             <select>
-                                                <option>Mensal</option>
-                                                <option>Trimestral</option>
-                                                <option>Semestral</option>
+                                                {tiposAluguel.map((aluguel, index) => (
+                                                    <option key={aluguel.Codigo ?? index}>{aluguel.Nome}</option>
+                                                ))}
                                             </select>
 
                                             <span className="material-symbols-outlined">expand_more</span>
@@ -252,7 +269,8 @@ export default function DetalhesConteinerCatalogo(){
                                 <div className={styles.resumo_total}>
                                     <p>Valor base</p>
                                     <strong>
-                                        R$ 1.890 <small>/ mês</small>
+                                        {aluguelBase ? `R$ ${aluguelBase.Valor}` : 'Valor indisponível'}
+                                        {aluguelBase && <small> / {aluguelBase.Nome.toLowerCase()}</small>}
                                     </strong>
                                 </div>
 
@@ -299,19 +317,19 @@ export default function DetalhesConteinerCatalogo(){
 
                         <div className="area_popup_galeria_grade">
                             <button>
-                                <img src="/images/conteiner_2.png" alt="Studio Modular 20 pés" />
+                                <img src="/images/conteiner_2.png" alt={nomeConteiner} />
                             </button>
 
                             <button>
-                                <img src="/images/conteiner.png" alt="Studio Modular 20 pés" />
+                                <img src="/images/conteiner.png" alt={nomeConteiner} />
                             </button>
 
                             <button>
-                                <img src="/images/conteiner_2.png" alt="Studio Modular 20 pés" />
+                                <img src="/images/conteiner_2.png" alt={nomeConteiner} />
                             </button>
 
                             <button>
-                                <img src="/images/conteiner.png" alt="Studio Modular 20 pés" />
+                                <img src="/images/conteiner.png" alt={nomeConteiner} />
                             </button>
                         </div>
 

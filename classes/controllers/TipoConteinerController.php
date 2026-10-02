@@ -5,8 +5,7 @@ class TipoConteinerController {
         $tipos = [];
 
         foreach($dados as $instancia){
-            $tipo = new TipoConteiner($instancia['cd_tipo_conteiner'], $instancia['nm_tipo_conteiner']);
-            array_push($tipos, $tipo);
+            $tipos[] = new TipoConteiner($instancia['cd_tipo_conteiner'], $instancia['nm_tipo_conteiner']);
         }
 
         return $tipos;

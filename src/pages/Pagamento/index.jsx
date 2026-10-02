@@ -1,7 +1,36 @@
 import { Link } from 'react-router-dom';
 import styles from './index.module.css';
+import { useEffect } from 'react';
+import axios from 'axios';
 
 export default function Pagamento(){
+    useEffect(()=>{
+        axios.post("https://api-sandbox.asaas.com/v3", 
+        {            
+            "customer": 123,
+            "billingType": "PIX",
+            "value": 150.00,
+            "dueDate": "2026-10-05",
+            "description": "Aluguel do contêiner"
+        },
+        {
+            withCredentials: true,
+        }
+        ).then(function (resposta) {
+        if (resposta.status === 200 && resposta.data) {
+            console.log(resposta.data);
+            // A resposta veio SEM erros
+        } 
+        })
+        .catch(function (error) {
+        console.warn(error);
+        // O que fazer se der erro na requisição
+        })
+        .finally(function () {
+        // O que fazer independente de ter dado erro ou não
+        });
+    }, [])
+
     return(
         <>
             <main>

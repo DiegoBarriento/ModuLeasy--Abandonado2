@@ -76,5 +76,36 @@ class Banco
 
 		$cSQL->closeCursor();
 	}
+
+	protected static function ExecutarRetorno($nomeProcedure, $parametros = [])
+	{
+		self::Conectar();
+
+		$placeholders = [];
+
+		foreach ($parametros as $chave => $valor) {
+			$placeholders[] = ':' . $chave;
+		}
+
+		$sql = 'CALL ' . $nomeProcedure;
+
+		if ($placeholders) {
+			$sql .= '(' . implode(', ', $placeholders) . ')';
+		}
+
+		$cSQL = self::$conexao->prepare($sql);
+
+		foreach ($parametros as $chave => $valor) {
+			$cSQL->bindValue(':' . $chave, $valor);
+		}
+
+		$cSQL->execute();
+
+		$dados = $cSQL->fetch(PDO::FETCH_ASSOC);
+
+		$cSQL->closeCursor();
+
+		return $dados;
+	}
 }
 ?>

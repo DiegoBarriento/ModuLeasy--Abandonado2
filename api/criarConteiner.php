@@ -1,6 +1,8 @@
 <?php
+
 require_once('cors.php');
 require_once('config.php');
+
 header('Access-Control-Allow-Methods: POST, OPTIONS');
 header('Access-Control-Allow-Headers: Content-Type');
 header('Content-Type: application/json');
@@ -19,14 +21,24 @@ if ($metodo != 'POST')
 	return;
 }
 
-$corpo = json_decode(file_get_contents("php://input"), true);
-if (!validaCorpoRequisicao($corpo)) {
-	return;
-}
-$chaves = ['locador','dtfabricacaoconteiner','bicconteiner','taraconteiner','cargamaximaconteiner','tipoconteiner','tamanhoconteiner','deposito','fabricante'];
+$corpo = $_POST;
+
+$chaves = [
+	'locador',
+	'dtfabricacaoconteiner',
+	'bicconteiner',
+	'taraconteiner',
+	'cargamaximaconteiner',
+	'tipoconteiner',
+	'tamanhoconteiner',
+	'deposito',
+	'fabricante'
+];
+
 if (!validaChaves($corpo, $chaves)) {
 	return;
 }
+
 $locador = $corpo['locador'];
 $dtfabricacaoconteiner = $corpo['dtfabricacaoconteiner'];
 $bicconteiner = $corpo['bicconteiner'];
@@ -38,39 +50,100 @@ $deposito = $corpo['deposito'];
 $fabricante = $corpo['fabricante'];
 
 try {
-	ConteinerController::criarConteiner($locador, $dtfabricacaoconteiner, $bicconteiner, $taraconteiner, $cargamaximaconteiner, $tipoconteiner, $tamanhoconteiner, 
-	$deposito, $fabricante);
-	http_response_code(200);
-	echo json_encode(['status' => 'true']);
-} catch (Exception $erro) {
-	http_response_code(500);
-	echo json_encode(['status' => 'false', 'mensagem' => $erro->GetMessage()]);
-}
 
-function validaCorpoRequisicao($corpo) {
-	if (is_null($corpo))
-	{
-		http_response_code(400);
-		echo json_encode(['mensagem'=>'Dados Inválidos!']);
-		return false;
+	$resultado = ConteinerController::criarConteiner(
+		$locador,
+		$dtfabricacaoconteiner,
+		$bicconteiner,
+		$taraconteiner,
+		$cargamaximaconteiner,
+		$tipoconteiner,
+		$tamanhoconteiner,
+		$deposito,
+		$fabricante
+	);
+
+	$cdConteiner = $resultado['cd_conteiner'];
+	
+
+	$pasta = __DIR__ . '/../uploads/conteineres/';
+
+	$quantidadeFotos = 0;
+
+	if (isset($_FILES['fotos'])) {
+
+		foreach ($_FILES['fotos']['tmp_name'] as $indice => $arquivoTemporario) {
+
+			if ($_FILES['fotos']['error'][$indice] !== UPLOAD_ERR_OK) {
+				continue;
+			}
+
+			$nomeOriginal = $_FILES['fotos']['name'][$indice];
+			$extensao = strtolower(pathinfo($nomeOriginal, PATHINFO_EXTENSION));
+
+			$nomeArquivo = $cdConteiner . '_' . ($indice + 1) . '.' . $extensao;
+
+			$caminho = $pasta . $nomeArquivo;
+
+			if (move_uploaded_file($arquivoTemporario, $caminho)) {
+				$quantidadeFotos++;
+			}
+		}
 	}
-	return true;
+
+	http_response_code(200);
+
+	echo json_encode([
+    'status' => 'true',
+    'mensagem' => 'Contêiner cadastrado com sucesso!',
+    'cd_conteiner' => $cdConteiner,
+    'dados' => [
+        'locador' => $locador,
+        'data_fabricacao' => $dtfabricacaoconteiner,
+        'bic' => $bicconteiner,
+        'tara' => $taraconteiner,
+        'carga_maxima' => $cargamaximaconteiner,
+        'tipo' => $tipoconteiner,
+        'tamanho' => $tamanhoconteiner,
+        'deposito' => $deposito,
+        'fabricante' => $fabricante
+    ]
+]);
+
+} catch (Exception $erro) {
+
+	http_response_code(500);
+
+	echo json_encode([
+		'status' => 'false',
+		'mensagem' => $erro->GetMessage()
+	]);
 }
 
 function validaChaves($corpo, $campos) {
-	for ($i=0; $i < count($campos); $i++) { 
+
+	for ($i = 0; $i < count($campos); $i++) { 
+
 		if (!array_key_exists($campos[$i], $corpo))
 		{
 			http_response_code(400);
-			echo json_encode(['mensagem'=>'Dados incorretos. Verifique a documentação da API e tente novamente!']);
+			echo json_encode([
+				'mensagem' => 'Dados incorretos. Verifique a documentação da API e tente novamente!'
+			]);
 			return false;
 		}
-		if ($corpo[$campos[$i]] == ''){
+
+		if ($corpo[$campos[$i]] == '')
+		{
 			http_response_code(400);
-			echo json_encode(['mensagem'=>'Dados incorretos. Verifique a documentação da API e tente novamente!']);
+			echo json_encode([
+				'mensagem' => 'Dados incorretos. Verifique a documentação da API e tente novamente!'
+			]);
 			return false;
 		}
 	}
+
 	return true;
 }
+
 ?>

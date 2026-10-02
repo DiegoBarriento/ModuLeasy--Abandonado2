@@ -18,37 +18,24 @@ if ($metodo != 'POST')
 	echo json_encode(['mensagem' => 'Método Inválido']); 
 	return;
 }
-
-$corpo = json_decode(file_get_contents('php://input'), true);
-if (!validaCorpoRequisicao($corpo)) {
-	return;
-}
-
-$chaves = ['email', 'cnpj', 'nome', 'senha'];
-if (!validaChaves($corpo, $chaves)) {
-	return;
-}
-
-$email = $corpo['email'];
-$cnpj = $corpo['cnpj'] === '' ? null : $corpo['cnpj'];
-$nome = $corpo['nome'];
-$senha = $corpo['senha'];
-
 try {
-	LocadorController::criarLocador($email, $cnpj, $nome, $senha);
-	http_response_code(200);
-	echo json_encode(['status' => 'true']);
-} catch (Exception $erro) {
-	$mensagemCompleta = $erro->getMessage();
-	if (strpos($mensagemCompleta, 'SQLSTATE') !== false && strpos($mensagemCompleta, '1644') !== false) {
-		$partes = explode(': ', $mensagemCompleta);
-		$mensagem = trim(end($partes));
-		$mensagem = substr($mensagem, 5);
-	} else {
-		$mensagem = $mensagemCompleta;
-		http_response_code(500);
+
+	$corpo = json_decode(file_get_contents("php://input"), true);
+	if (!validaCorpoRequisicao($corpo)) {
+		return;
 	}
-	echo json_encode(['status' => 'false', 'mensagem' => $mensagem]);
+	$chaves = ['conteiner'];
+	if (!validaChaves($corpo, $chaves)) {
+		return;
+	}
+	$conteiner = $corpo['conteiner'];
+
+	$dados = ConteinerController::pegarDadosConteiner($conteiner);
+	http_response_code(200);
+	echo json_encode(['status' => 'true', 'dados' => $dados]);
+} catch (Exception $erro) {
+	http_response_code(500);
+	echo json_encode(['status' => 'false', 'mensagem' => $erro->getMessage()]);
 }
 
 function validaCorpoRequisicao($corpo) {

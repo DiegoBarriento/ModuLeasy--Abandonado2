@@ -1,12 +1,15 @@
 <?php 
 class TipoAluguelController {
+    
     public static function listarTiposAluguel(){
-        $resultado =  TipoAluguel::listarTiposAluguel();
-        $tiposAluguel = [];
-        foreach($resultado as $linha){
-            $tiposAluguel[] = new TipoAluguel($linha['cd_tipo_aluguel'], $linha['nm_tipo_aluguel'] );
+        $dados = TipoAluguel::listarTiposAluguel();
+        $tipos = [];
+
+        foreach($dados as $instancia){
+            $tipo = new TipoAluguel($instancia['cd_tipo_aluguel'], $instancia['nm_tipo_aluguel']);
+            array_push($tipos, $tipo);
         }
-        return $tiposAluguel;
+        return $tipos;
     }
 }
 ?>

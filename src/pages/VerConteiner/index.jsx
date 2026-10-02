@@ -1,20 +1,52 @@
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import styles from './index.module.css';
+import axios from 'axios';
 
-export default function VerConteiner(){
+export default function VerConteiner(props){
+    const location = useLocation();
+    const { conteiner, dados } = location.state;
+
+    console.log(conteiner);
+    console.log(dados);
+
+    function mascaraCNPJ(valor) {
+        valor = valor.replace(/\D/g, "");
+
+        valor = valor.replace(/^(\d{2})(\d)/, "$1.$2");
+        valor = valor.replace(/^(\d{2})\.(\d{3})(\d)/, "$1.$2.$3");
+        valor = valor.replace(/\.(\d{3})(\d)/, ".$1/$2");
+        valor = valor.replace(/(\d{4})(\d)/, "$1-$2");
+
+        return valor;
+    }
+
+    function formatarData(data) {
+        if (!data) return "";
+
+        const [ano, mes, dia] = data.split("-");
+
+        return `${dia}/${mes}/${ano}`;
+    }
+
+    const cnpjMascarado = mascaraCNPJ(conteiner.Fabricante.Cnpj);
+    const dataFormatada = formatarData(conteiner.Dtfabricacao);
+
     return(
         <>
             <main>
                 <div className="conteudo">
                     <Link to="/meus_conteineres" className="voltar">
                         <span className="material-symbols-outlined">arrow_back</span>
-                        Voltar para Meus Contêineres
+                        Voltar para meus contêineres
                     </Link>
 
                     <div className="cabecalho_alt">
                         <div className={styles.conteiner_situacao}>
-                            <h1>Studio Modular 20 pés</h1>
-                            <span className="situacao alugado">Alugado</span>
+                            <h1>{conteiner.Tipo.Nome} {conteiner.Tamanho.Nome}</h1>
+                            {dados[1].map(function(tipo, index){ return (
+                                <span key={index} className="situacao alugado">{tipo.Nome}</span>
+                            )})}
+                            
                         </div>
 
                         <Link to="/gerenciar_conteiner" className="botao botao_escuro">
@@ -111,42 +143,42 @@ export default function VerConteiner(){
                             <div className={styles.info_grid}>
                                 <div>
                                     <p>Código BIC</p>
-                                    <strong>MOD-001</strong>
+                                    <strong>{conteiner.Bic}</strong>
                                 </div>
 
                                 <div>
                                     <p>Nome do fabricante</p>
-                                    <strong>ModuLeasy Indústria</strong>
+                                    <strong>{conteiner.Fabricante.Nome}</strong>
                                 </div>
 
                                 <div>
                                     <p>CNPJ do fabricante</p>
-                                    <strong>12.345.678/0001-90</strong>
+                                    <strong>{cnpjMascarado}</strong>
                                 </div>
 
                                 <div>
                                     <p>Data de fabricação</p>
-                                    <strong>15/03/2024</strong>
+                                    <strong>{dataFormatada}</strong>
                                 </div>
 
                                 <div>
                                     <p>Tipo</p>
-                                    <strong>High Cube</strong>
+                                    <strong>{conteiner.Tipo.Nome}</strong>
                                 </div>
 
                                 <div>
                                     <p>Tamanho</p>
-                                    <strong>20 pés</strong>
+                                    <strong>{conteiner.Tamanho.Nome}</strong>
                                 </div>
 
                                 <div>
                                     <p>Carga máxima</p>
-                                    <strong>28.200 kg</strong>
+                                    <strong>{conteiner.Cargamaxima} T</strong>
                                 </div>
 
                                 <div>
                                     <p>Tara</p>
-                                    <strong>2.230 kg</strong>
+                                    <strong>{conteiner.Tara} T</strong>
                                 </div>
                             </div>
 
@@ -160,8 +192,9 @@ export default function VerConteiner(){
 
                                 <div className={styles.desce_caixa_conteudo}>
                                     <ul className={styles.lista_especificacoes}>
-                                        <li><strong>Moradia</strong></li>
-                                        <li><strong>Home office</strong></li>
+                                        {dados[0].map(function(finalidade, index){ return (
+                                            <li key={index}><strong>{finalidade.Nome}</strong></li>
+                                        )})}
                                     </ul>
                                 </div>
                             </div>
@@ -178,20 +211,12 @@ export default function VerConteiner(){
 
                                 <div className={styles.desce_caixa_conteudo}>
                                     <ul className={styles.lista_especificacoes}>
-                                        <li>
-                                            <p className="etiqueta">Estrutural</p>
-                                            <strong>Isolamento térmico</strong>
-                                        </li>
-
-                                        <li>
-                                            <p className="etiqueta">Estrutural</p>
-                                            <strong>Banheiro</strong>
-                                        </li>
-
-                                        <li>
-                                            <p className="etiqueta">Estrutural</p>
-                                            <strong>Energia elétrica</strong>
-                                        </li>
+                                        {dados[3].map(function(componente, index){ return (
+                                            <li key={index}>
+                                                <p className="etiqueta">{componente.Nome}</p>
+                                                <strong>{componente.Descricao}</strong>
+                                            </li>
+                                        )})}
                                     </ul>
                                 </div>
                             </div>

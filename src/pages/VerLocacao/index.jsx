@@ -137,7 +137,7 @@ export default function VerLocacao(){
 
                                 <div>
                                     <p>Tamanho</p>
-                                    <strong>20'</strong>
+                                    <strong>20 pés</strong>
                                 </div>
 
                                 <div>

@@ -74,5 +74,12 @@ class Locador extends Banco {
 		];
 		self::Executar('deletarContaLocador', $parametros);
 	}
+
+	public static function listarConteineresLocador($locador){
+		$parametros = [
+			'pLocador' => $locador
+		];
+		return self::Consultar('listarConteineresLocador', $parametros);
+	}
 }
 ?>

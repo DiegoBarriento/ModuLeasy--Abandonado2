@@ -82,5 +82,27 @@ class LocadorController {
     public static function deletarContaLocador($locador){
         Locador::deletarContaLocador($locador);
     }
+
+    public static function listarConteineresLocador($locador){
+    $dadosC = Locador::listarConteineresLocador($locador);
+    $conteineresLocador = [];
+
+    foreach ($dadosC as $instancia) {
+        $tipo = new TipoConteiner($instancia['cd_tipo_conteiner'], $instancia['nm_tipo_conteiner']);
+        $tamanho = new TamanhoConteiner($instancia['cd_tamanho_conteiner'], $instancia['nm_tamanho_conteiner']);
+        $locadorObj = new Locador($instancia['nm_email_locador'], $instancia['cd_cnpj_locador'], $instancia['nm_locador']);
+        $tamanho = new TamanhoConteiner($instancia['cd_tamanho_conteiner'], $instancia['nm_tamanho_conteiner']);
+        $tipo = new TipoConteiner($instancia['cd_tipo_conteiner'], $instancia['nm_tipo_conteiner']);
+        $fabricante = new Fabricante($instancia['cd_cnpj_fabricante'], $instancia['nm_fabricante']);
+        $deposito = new Deposito($instancia['cd_deposito'], $instancia['nm_deposito'], $instancia['cd_cep_deposito'], $instancia['nm_endereco_deposito'],
+        $instancia['qt_raio_atuacao_deposito']);
+
+        $conteiner = new Conteiner($instancia['cd_conteiner'], $instancia['dt_fabricacao_conteiner'], $instancia['cd_bic_conteiner'], $instancia['qt_tara_conteiner'],
+        $instancia['qt_carga_maxima_conteiner'], $tipo, $tamanho, $deposito, $fabricante, $locadorObj, null, null, null);
+
+        array_push($conteineresLocador, $conteiner);
+        }
+        return $conteineresLocador;
+    }
 }
 ?>
