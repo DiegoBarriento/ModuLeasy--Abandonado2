@@ -7,6 +7,22 @@ export default function MenuLateral(){
 
     function encerrarSessao(){
         localStorage.removeItem('usuario');
+        axios.get("http://localhost/ModuLeasy/api/encerrarsessao.php", {
+        withCredentials: true,
+        })
+        .then(function (resposta) {
+        if (resposta.status === 200 && resposta.data) {
+            console.log(resposta.data);
+            // A resposta veio SEM erros
+        } 
+        })
+        .catch(function (error) {
+        console.warn(error);
+        // O que fazer se der erro na requisição
+        })
+        .finally(function () {
+        // O que fazer independente de ter dado erro ou não
+        });
     }
 
     return(
