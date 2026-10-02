@@ -34,7 +34,7 @@ export default function MenuLateral(){
                 </div>
 
                 <div className="navegacao_menu">
-                    {usuario.TipoUsuario === 'locador' ? (
+                    {usuario.TipoUsuario === 'Locador' ? (
                         <>
                             <Link className="item_menu" to="/painel">
                                 <span className="material-symbols-outlined">dashboard</span>

@@ -3,7 +3,7 @@ import ItemListaMeusConteineres from '../../components/ItemListaMeusConteineres'
 import styles from './index.module.css';
 
 export default function MeusConteineres(){
-    // const usuario = JSON.parse(localStorage.getItem('usuario'));
+    const usuario = JSON.parse(localStorage.getItem('usuario'));
     // console.log(usuario.tipo_usuario);
     return(
         <>
