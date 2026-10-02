@@ -1,0 +1,113 @@
+.layout_pagamento {
+    display: grid;
+    grid-template-columns: minmax(0, 60%) minmax(260px, 40%);
+    gap: 25px;
+    align-items: start;
+}
+
+.pix {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 35px;
+}
+
+.pix .campo {
+    width: 100%;
+}
+
+.pix img {
+    width: 200px;
+    height: 200px;
+}
+
+.linha_copiar {
+    display: flex;
+    gap: 20px;
+}
+
+.linha_copiar button {
+	display: grid;
+	place-items: center;
+	padding: 0px 12px;
+	border: 0;
+	border-radius: 8px;
+	background-color: var(--cor_7);
+	cursor: pointer;
+}
+
+.linha_copiar span {
+    color: var(--cor_6);
+}
+
+
+.resumo_pagamento {
+    background-color: var(--cor_0);
+    border: 1px solid var(--cor_5);
+    border-radius: 15px;
+    padding: 0;
+}
+
+.foto_resumo {
+    border-radius: 15px 15px 0 0;
+	height: 140px;
+	overflow: hidden;
+}
+
+.foto_resumo img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+.corpo_resumo {
+	padding: 25px
+}
+
+.corpo_resumo h3 {
+	margin-bottom: 20px;
+	font-size: 16px;
+}
+
+.linha_resumo {
+	display: flex;
+	justify-content: space-between;
+	gap: 15px;
+	padding: 15px 0;
+	border-bottom: 1px solid var(--cor_5);
+}
+
+.linha_resumo p {
+	color: var(--cor_6);
+    font-size: 14px;
+}
+
+.resumo_total {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 15px;
+	margin: 30px 0;
+}
+
+.resumo_total p {
+	font-weight: 600;
+}
+
+.resumo_total strong {
+    font-size: 22px;
+	white-space: nowrap;
+}
+
+.resumo_total span {
+	color: var(--cor_6);
+	font-size: 12px;
+}
+
+
+@media(max-width:1024px) {
+    .layout_pagamento {
+        grid-template-columns: 1fr;
+    }
+}
+

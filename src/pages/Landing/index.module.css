@@ -1,0 +1,388 @@
+.telas_sem_menu{
+    width: 100%;
+    margin-left: 0;
+}
+
+.conteudo {
+    padding: 0px 45px 45px 45px;
+}
+
+.navegacao {
+    padding: 25px 45px;
+    height: 95px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 25px;
+}
+
+.item_nav {
+    display: flex;
+    align-items: center;
+    gap: 35px;
+}
+
+.item_nav a,
+.link_entrar {
+    color: var(--cor_6);
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.acoes_nav {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+}
+
+.azul {
+    color: #4d9de0;
+}
+
+.parte_slogan {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    justify-content: center;
+    padding: 0px 35px 0px 0px;
+}
+
+.parte_slogan h1 {
+    font-size: clamp(42px, 6vw, 80px);
+}
+
+.parte_slogan p {
+    color: var(--cor_6);
+}
+
+.botoes_slogan {
+    display: flex;
+    gap: 20px;
+}
+
+.foto_slogan {
+    position: relative;
+    overflow: hidden;
+    border-radius: 25px;
+    min-height: 535px;
+}
+
+.foto_slogan img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
+    transition: 0.4s ease;
+}
+
+.foto_slogan img:hover{
+    transform: scale(1.04);
+}
+
+.legenda_foto {
+    position: absolute;
+    left: 22px;
+    right: 22px;
+    bottom: 22px;
+    background: var(--cor_0);
+    border-radius: 15px;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+}
+
+.legenda_foto p {
+    font-size: 12px;
+    color: var(--cor_6);
+    font-weight: 700;
+}
+
+.legenda_foto strong {
+    font-size: 12px;
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+.legenda_foto strong span {
+    font-size: 20px;
+}
+
+.area_slogan {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    margin-top: 35px;
+    min-height: 600px;
+    padding: 45px;
+}
+
+.secao_etapas,
+.secao_fluxo {
+    background-color: var(--cor_0);
+    border-top: 1px solid var(--cor_5);
+    border-bottom: 1px solid var(--cor_5);
+}
+
+.secao {
+    max-width: 1490px;
+    margin: auto;
+}
+
+.secao_etapas .secao,
+.secao_fluxo .secao,
+.secao_nossos_recursos .secao {
+    padding: 80px 45px;
+}
+
+
+.grade_landing {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-top: 50px;
+}
+
+.cartao_etapa {
+    position: relative;
+    background-color: var(--cor_0);
+    border: 1px solid var(--cor_5);
+    border-radius: 15px;
+    padding: 30px;
+    overflow: hidden;
+    transition: 0.2s ease;
+}
+
+.cartao_etapa:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 18px #283f5c0f;
+}
+
+.numero_etapa {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 60px;
+    font-weight: 800;
+    color: #f0f0f0;
+
+}
+
+.icone_etapa {
+    width: 45px;
+    height: 45px;
+    border-radius: 12px;
+    background-color: var(--cor_2);
+    display: grid;
+    place-items: center;
+    margin-bottom: 25px;
+}
+
+.icone_etapa span {
+    color: var(--cor_0);
+    font-size: 22px;
+}
+
+.cartao_etapa h3 {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--cor_2);
+}
+
+.cartao_etapa p {
+    font-size: 14px;
+    color: var(--cor_6);
+    margin-top: 10px;
+}
+
+.recurso {
+    background-color: var(--cor_0);
+    border: 1px solid var(--cor_5);
+    border-radius: 15px;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+    transition: 0.2s ease;
+}
+
+.icone_recurso {
+    width: 45px;
+    height: 45px;
+    border-radius: 12px;
+    background-color: #e0f2fe;
+    display: grid;
+    place-items: center;
+}
+
+.icone_recurso span {
+    color: #4d9de0;
+    font-size: 22px;
+}
+
+.recurso:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 18px #283f5c0f;
+
+    .icone_recurso span {
+        color: var(--cor_0);
+    }
+
+    .icone_recurso {
+        background-color: #4d9de0;
+    }
+}
+
+.recurso strong {
+    font-size: 16px;
+    color: var(--cor_2);
+}
+
+.recurso p {
+    font-size: 14px;
+    color: var(--cor_6);
+}
+
+.grade_fluxo {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 20px;
+    margin-top: 50px;
+}
+
+.parte_fluxo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    text-align: center;
+}
+
+.caixa_fluxo {
+    position: relative;
+    width: 65px;
+    height: 65px;
+    border-radius: 20px;
+    background-color: var(--cor_0);
+    border: 1px solid var(--cor_5);
+    display: grid;
+    place-items: center;
+    transition: 0.2s ease;
+}
+
+.caixa_fluxo:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 18px #283f5c0f;
+}
+
+.caixa_fluxo span {
+    font-size: 22px;
+}
+
+.numero_passo {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background-color: var(--cor_2);
+    color: var(--cor_0);
+    font-size: 12px;
+    font-weight: 600;
+    display: grid;
+    place-items: center;
+}
+
+.nome_fluxo {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--cor_6);
+}
+
+
+
+.rodape_landing p {
+    color: var(--cor_7);
+    font-size: 12px;
+}
+
+footer.rodape_landing {
+    background-color: var(--cor_3);
+    padding: 45px 85px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    margin-top: auto;
+}
+
+
+@media(max-width:1024px) {
+    .navegacao {
+        height: 75px;
+        padding: 15px 25px;
+    }
+
+    .item_nav {
+        display: none;
+    }
+
+    .area_slogan {
+        padding: 25px;
+        display: flex;
+        flex-direction: column;
+        gap: 25px;
+    }
+
+    .grade_landing {
+        grid-template-columns: repeat(1, 1fr);
+    }
+
+    .grade_fluxo{
+        grid-template-columns:repeat(3,1fr);
+    }
+
+    footer.rodape_landing {
+        padding: 35px 20px;
+        flex-wrap: wrap;
+    }
+}
+
+@media(max-width:560px) {
+    .botoes_slogan {
+        width: 100%;
+        flex-wrap: wrap;
+    }
+
+    .botoes_slogan .botao {
+        width: 100%;
+    }
+
+    .foto_slogan {
+        min-height: 285px;
+    }
+
+    .logo_completa {
+        height: 40px;
+    }
+
+    .acoes_nav .link_entrar {
+        display: none;
+    }
+
+    .acoes_nav .botao span{
+       display: none;
+    }
+
+    .secao_etapas .secao,
+    .secao_nossos_recursos .secao {
+        padding: 45px 25px;
+    }
+
+    .grade_fluxo{
+        grid-template-columns:repeat(2,1fr);
+    }
+}

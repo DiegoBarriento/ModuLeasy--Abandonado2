@@ -1,0 +1,221 @@
+.pagina_detalhes_conteiner {
+    display: flex;
+    gap: 25px;
+}
+
+.foto_principal{
+    height:365px;
+    border-radius:15px;
+    overflow:hidden;
+    margin-bottom:10px;
+}
+
+.foto_principal img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+.miniaturas{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:10px;
+}
+
+.miniaturas label{
+    border-radius:15px;
+    overflow:hidden;
+    height:85px;
+    cursor:pointer;
+    position:relative;
+    display:block;
+}
+
+.miniaturas img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+.mais_fotos{
+    position:absolute;
+    inset:0;
+    background-color:#14304dcc;
+    color:var(--cor_0);
+    font-size:12px;
+    font-weight:800;
+    display:grid;
+    place-items:center;
+}
+
+.area_fotos_info {
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.info_grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:20px;
+}
+
+.info_grid div{
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+}
+
+.info_grid p{
+    font-size:10px;
+    color:var(--cor_6);
+    font-weight:800;
+    text-transform:uppercase;
+}
+
+.desce_caixa{
+    margin-top:20px;
+}
+
+.radio_desce_caixa{
+    display:none;
+}
+
+.desce_caixa_titulo{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:20px 0;
+    border-top:1px solid var(--cor_5);
+    cursor:pointer;
+    font-weight:700;
+}
+
+
+.desce_caixa_titulo span{
+    color:var(--cor_6);
+    transition:0.2s ease;
+}
+
+.radio_desce_caixa:checked ~ .desce_caixa_titulo .material-symbols-outlined{
+    transform:rotate(90deg);
+}
+
+.desce_caixa_conteudo{
+    display:none;
+}
+
+.radio_desce_caixa:checked ~ .desce_caixa_conteudo{
+    display:block;
+}
+
+.lista_especificacoes{
+    list-style:none;
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+    padding: 5px 0;
+}
+
+.lista_especificacoes li{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-size:12px;
+    color:var(--cor_2);
+}
+
+.enderecos_cadastrados {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.endereco_cadastrado {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 20px;
+    border: solid 1px var(--cor_5);
+    border-radius: 8px;
+    background-color: #fafcfd;
+}
+
+.endereco_cadastrado p {
+    color: var(--cor_6);
+    font-size: 12px;
+}
+
+.endereco_cadastrado:hover {
+    background-color: #f5faff;
+    border: solid 1px #b9d4ee;
+}
+
+.acoes_endereco{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:15px;
+    margin-top:20px;
+}
+
+.texto_ajuda {
+    font-size: 12px;
+    color: var(--cor_6);
+}
+
+.resumo_locacao {
+    width: 40%;
+}
+
+.resumo_locacao section{
+    position: sticky;
+    top: 25px;
+}
+
+
+.resumo_total{
+    border-top:1px solid var(--cor_5);
+    padding-top:25px;
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.resumo_total strong{
+    font-size: 22px;
+}
+
+.termos_aluguel {
+    margin-bottom: 25px;
+}
+
+.area_botoes {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+@media(max-width:1100px){
+    .pagina_detalhes_conteiner{
+        display: grid;
+        grid-template-columns:1fr;
+    }
+
+    .area_fotos_info {
+        width: 100%;
+    }
+
+    .resumo_locacao {
+        width: 100%;
+    }
+}
+
+@media(max-width:1024px){
+    .foto_principal{
+        height:300px;
+    }
+}
