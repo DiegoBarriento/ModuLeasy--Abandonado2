@@ -1,13 +1,43 @@
 import { Link } from 'react-router-dom';
+import { useState } from 'react';
 import styles from './index.module.css';
+import axios from 'axios';
 
 export default function Cadastro(){
+
+    const [tipoUsuario, setTipoUsuario] = useState('locatario');
+    const [email, setEmail] = useState('');
+    const [senha, setSenha] = useState('');
+    const [confirmarSenha, setConfirmarSenha] = useState('');
+    const [cpfCnpj, setCpfCnpj] = useState('');
+
+    function btnCriarClick(){
+        if(email === ""){
+            return alert('O campo de email é obrigatório!')
+        }
+
+        if(senha === ""){
+            return alert('O campo de senha é obrigatório!')
+        }
+
+        if(confirmarSenha === ""){
+            return alert('O campo de confirmar senha é obrigatório!')
+        }
+
+        if(cpfCnpj === ""){
+            return alert('O campo de CPF/CNPJ é obrigatório!')
+        }
+        if(senha !== confirmarSenha){
+            return alert('As senhas não coincidem!')
+        }
+    }
+
     return(
         <>
             <main className={`${styles.pagina_login} ${styles.telas_sem_menu}`}>
                 <div className={styles.visual_login}>
                     <Link className={styles.login_marca} to="/">
-                        <img className="logo_completa_menor" src="/images/logo.png" />
+                        <img className="logo_completa_menor" src="public/images/logo.png" />
                     </Link>
 
                     <div className={styles.login_slogan}>
@@ -47,12 +77,18 @@ export default function Cadastro(){
 
                             <div className={styles.espaco_form}>
                                 <div className="campo">
-                                    <span className={styles.tipo_usuario_escolha}>Quero me cadastrar como</span>
+                                    <span className={styles.tipo_usuario_escolha} id="tipo-usuario-label">Quero me cadastrar como</span>
 
-                                    <div className={styles.alternar_tipo_usuario}>
-                                        <button className={styles.selecionado}>Locatário</button>
-                                        <button>Locador</button>
-                                    </div>
+                                    <fieldset className={styles.alternar_tipo_usuario} aria-labelledby="tipo-usuario-label" role="radiogroup" value={tipoUsuario} onChange={(e) => setTipoUsuario(e.target.value)}>
+                                        <label>
+                                            <input type="radio" name="tipoUsuario" value="locatario" defaultChecked />
+                                            <span>Locatário</span>
+                                        </label>
+                                        <label>
+                                            <input type="radio" name="tipoUsuario" value="locador" />
+                                            <span>Locador</span>
+                                        </label>
+                                    </fieldset>
                                 </div>
 
                                 <div className="campo">
@@ -60,7 +96,7 @@ export default function Cadastro(){
 
                                     <div className={styles.campo_icone}>
                                         <span className="material-symbols-outlined">mail</span>
-                                        <input type="email" placeholder="voce@exemplo.com" />
+                                        <input type="email" placeholder="voce@exemplo.com" value={email} onChange={(e) => setEmail(e.target.value)} />
                                     </div>
                                 </div>
 
@@ -69,7 +105,7 @@ export default function Cadastro(){
 
                                     <div className={styles.campo_icone}>
                                         <span className="material-symbols-outlined">lock</span>
-                                        <input type="password" placeholder="••••••••" />
+                                        <input type="password" placeholder="••••••••" value={senha} onChange={(e) => setSenha(e.target.value)} />
                                     </div>
                                 </div>
 
@@ -78,20 +114,20 @@ export default function Cadastro(){
 
                                     <div className={styles.campo_icone}>
                                         <span className="material-symbols-outlined">lock</span>
-                                        <input type="password" placeholder="••••••••" />
+                                        <input type="password" placeholder="••••••••" value={confirmarSenha} onChange={(e) => setConfirmarSenha(e.target.value)} />
                                     </div>
                                 </div>
 
                                 <div className="campo">
-                                    <label>CPF / CNPJ</label>
+                                    <label>{ tipoUsuario === 'locatario' ? 'CPF/CNPJ' : 'CNPJ'}</label>
 
                                     <div className={styles.campo_icone}>
                                         <span className="material-symbols-outlined">credit_card</span>
-                                        <input type="text" placeholder="000.000.000-00" />
+                                        <input type="text" placeholder="000.000.000-00" value={cpfCnpj} onChange={(e) => setCpfCnpj(e.target.value)} />
                                     </div>
                                 </div>
 
-                                <button className="botao botao_escuro completo">Criar conta</button>
+                                <button className="botao botao_escuro completo" onClick={btnCriarClick}>Criar conta</button>
                             </div>
                         </div>
 
