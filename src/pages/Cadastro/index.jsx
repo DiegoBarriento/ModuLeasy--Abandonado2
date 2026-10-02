@@ -10,6 +10,7 @@ export default function Cadastro(){
     const [senha, setSenha] = useState('');
     const [confirmarSenha, setConfirmarSenha] = useState('');
     const [cpfCnpj, setCpfCnpj] = useState('');
+    const [nome, setNome] = useState('');
 
     function btnCriarClick(){
         if(email === ""){
@@ -30,6 +31,61 @@ export default function Cadastro(){
         if(senha !== confirmarSenha){
             return alert('As senhas não coincidem!')
         }
+
+        if(tipoUsuario === 'locatario'){
+            axios.post("http://localhost/ModuLeasy/api/criarLocatario.php", 
+            {
+                /* conteudo do corpo JSON da requisicão */
+                'email': email,
+                'cnpj/cpf': cpfCnpj,
+                'nome': nome,
+                'senha': senha
+            },
+            {
+                withCredentials: true,
+            }
+            ).then(function (resposta) {
+            if (resposta.status === 200 && resposta.data) {
+                console.log(resposta.data);
+                // A resposta veio SEM erros
+            } 
+            })
+            .catch(function (error) {
+            console.warn(error);
+            // O que fazer se der erro na requisição
+            })
+            .finally(function () {
+            // O que fazer independente de ter dado erro ou não
+            });
+        }
+        else if(tipoUsuario === 'locador'){
+            axios.post("http://localhost/ModuLeasy/api/criarLocador.php", 
+            {
+                /* conteudo do corpo JSON da requisicão */
+                'email': email,
+                'cnpj': cpfCnpj,
+                'nome': nome,
+                'senha': senha
+            },
+            {
+                withCredentials: true,
+            }
+            ).then(function (resposta) {
+            if (resposta.status === 200 && resposta.data) {
+                console.log(resposta.data);
+                // A resposta veio SEM erros
+            } 
+            })
+            .catch(function (error) {
+            console.warn(error);
+            // O que fazer se der erro na requisição
+            })
+            .finally(function () {
+            // O que fazer independente de ter dado erro ou não
+            });
+        }
+
+
     }
 
     return(
@@ -89,6 +145,15 @@ export default function Cadastro(){
                                             <span>Locador</span>
                                         </label>
                                     </fieldset>
+                                </div>
+
+                                <div className="campo">
+                                    <label>Nome</label>
+
+                                    <div className={styles.campo_icone}>
+                                        <span className="material-symbols-outlined">mail</span>
+                                        <input type="text" placeholder="Seu nome completo" value={nome} onChange={(e) => setNome(e.target.value)} />
+                                    </div>
                                 </div>
 
                                 <div className="campo">

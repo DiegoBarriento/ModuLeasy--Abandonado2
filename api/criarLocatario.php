@@ -24,14 +24,14 @@ if (!validaCorpoRequisicao($corpo)) {
 	return;
 }
 
-$chaves = ['email', 'cnpj', 'cpf', 'nome', 'senha'];
+$chaves = ['email', 'cnpj/cpf', 'nome', 'senha'];
 if (!validaChaves($corpo, $chaves)) {
 	return;
 }
 
 $email = $corpo['email'];
-$cnpj = $corpo['cnpj'] === '' ? null : $corpo['cnpj'];
-$cpf = $corpo['cpf'] === '' ? null : $corpo['cpf'];
+$cnpj = $corpo['cnpj/cpf'] === '' ? null : $corpo['cnpj/cpf'];
+$cpf = $corpo['cnpj/cpf'] === '' ? null : $corpo['cnpj/cpf'];
 $nome = $corpo['nome'];
 $senha = $corpo['senha'];
 
