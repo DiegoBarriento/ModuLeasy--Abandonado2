@@ -269,6 +269,11 @@ export default function CadastrarConteiner() {
         )
         .then((resposta) => {
 
+            console.log(
+                'Tipos de aluguel carregados:',
+                resposta.data
+            );
+
             setTiposAluguel(
                 resposta.data.tiposAluguel
             );
@@ -276,7 +281,10 @@ export default function CadastrarConteiner() {
         })
         .catch((erro) => {
 
-            console.log('Erro ao carregar tipos de aluguel:', erro);
+            console.log(
+                'Erro ao carregar tipos de aluguel:',
+                erro
+            );
 
         });
 
@@ -441,21 +449,21 @@ export default function CadastrarConteiner() {
             return;
         }
 
+        // =========================
+        // CORREÇÃO
+        // Usa os mesmos campos
+        // utilizados no SELECT:
+        // Codigo e Nome
+        // =========================
+
         setTermosAluguel(
             (termosAtuais) => [
                 ...termosAtuais,
                 {
-                    codigo:
-                        tipoSelecionado.cd_tipo_aluguel,
-
-                    tipo:
-                        tipoSelecionado.nm_tipo_aluguel,
-
-                    valor:
-                        valorConteiner,
-
-                    multa:
-                        multa
+                    codigo: tipoSelecionado.Codigo,
+                    tipo: tipoSelecionado.Nome,
+                    valor: valorConteiner,
+                    multa: multa
                 }
             ]
         );
@@ -659,7 +667,6 @@ export default function CadastrarConteiner() {
             return;
         }
 
-
         if (termosAluguel.length === 0) {
 
             mostrarMensagem(
@@ -669,11 +676,6 @@ export default function CadastrarConteiner() {
 
             return;
         }
-
-        // =========================
-        // CONFIRMAÇÃO
-        // =========================
-
 
         // =========================
         // FORMDATA
@@ -727,10 +729,9 @@ export default function CadastrarConteiner() {
         );
 
         formData.append(
-    'fabricante',
-    cnpjFabricante.replace(/\D/g, '')
-    
-);
+            'fabricante',
+            cnpjFabricante.replace(/\D/g, '')
+        );
 
         // =========================
         // FINALIDADES
@@ -841,10 +842,6 @@ export default function CadastrarConteiner() {
 
             setFotos([]);
 
-            // if (inputFotosRef.current) {
-            //     inputFotosRef.current.value = '';
-            // }
-
         } catch (erro) {
 
             console.error(
@@ -929,8 +926,6 @@ export default function CadastrarConteiner() {
 
                             <div className="form_grid tres">
 
-                                {/* BIC */}
-
                                 <div className="campo">
 
                                     <label>
@@ -954,8 +949,6 @@ export default function CadastrarConteiner() {
 
                                 </div>
 
-                                {/* FABRICANTE */}
-
                                 <div className="campo">
 
                                     <label>
@@ -976,8 +969,6 @@ export default function CadastrarConteiner() {
                                     />
 
                                 </div>
-
-                                {/* CNPJ */}
 
                                 <div className="campo">
 
@@ -1002,8 +993,6 @@ export default function CadastrarConteiner() {
 
                                 </div>
 
-                                {/* DATA */}
-
                                 <div className="campo">
 
                                     <label>
@@ -1022,8 +1011,6 @@ export default function CadastrarConteiner() {
                                     />
 
                                 </div>
-
-                                {/* TIPO */}
 
                                 <div className="campo">
 
@@ -1074,8 +1061,6 @@ export default function CadastrarConteiner() {
 
                                 </div>
 
-                                {/* TAMANHO */}
-
                                 <div className="campo">
 
                                     <label>
@@ -1125,8 +1110,6 @@ export default function CadastrarConteiner() {
 
                                 </div>
 
-                                {/* CARGA */}
-
                                 <div className="campo">
 
                                     <label>
@@ -1149,8 +1132,6 @@ export default function CadastrarConteiner() {
                                     />
 
                                 </div>
-
-                                {/* TARA */}
 
                                 <div className="campo">
 
@@ -1175,8 +1156,6 @@ export default function CadastrarConteiner() {
 
                                 </div>
 
-                                {/* FINALIDADES */}
-
                                 <div
                                     className="campo"
                                     ref={finalidadesRef}
@@ -1192,7 +1171,12 @@ export default function CadastrarConteiner() {
                                         }
                                     >
 
-                                        <summary className={styles.multiselect_titulo}>
+                                        <summary
+                                            className={
+                                                styles.multiselect_titulo
+                                            }
+                                        >
+
                                             <span>
                                                 {selectedFinalidades.length === 0
                                                     ? ''
@@ -1207,6 +1191,7 @@ export default function CadastrarConteiner() {
                                             <span className="material-symbols-outlined">
                                                 add
                                             </span>
+
                                         </summary>
 
                                         <div
@@ -1268,9 +1253,11 @@ export default function CadastrarConteiner() {
                             <div className="secao_titulo">
 
                                 <span className="icone_secao">
+
                                     <span className="material-symbols-outlined">
                                         inventory
                                     </span>
+
                                 </span>
 
                                 <h2>

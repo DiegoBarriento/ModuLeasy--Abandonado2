@@ -44,7 +44,7 @@ export default function BotaoConteinerCatalogo(props){
 
                 <div className={styles.corpo_listagem}>
                     <div className={styles.linha_titulo}>
-                        <h3>{conteiner.Tipo.Nome} {conteiner.Tamanho.Nome}</h3>
+                        <h3>{conteiner.Tipo.Nome} {conteiner.Tamanho.Nome}'</h3>
                         <span className="material-symbols-outlined">arrow_outward</span>
                     </div>
 
