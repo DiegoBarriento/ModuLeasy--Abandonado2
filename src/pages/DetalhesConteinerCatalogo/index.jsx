@@ -1,6 +1,7 @@
 import { Link, useLocation } from 'react-router-dom';
 import styles from './index.module.css';
 import { useEffect, useState } from 'react';
+import axios from 'axios';
 
 export default function DetalhesConteinerCatalogo(){
     const location = useLocation();
@@ -14,6 +15,8 @@ export default function DetalhesConteinerCatalogo(){
     const nomeLocador = conteiner?.Locador?.Nome ?? 'Locador';
     const iniciaisLocador = nomeLocador.split(' ').filter(Boolean).slice(0, 2).map((nome) => nome[0]).join('').toUpperCase();
 
+    const [enderecosEntraga, setEnderecosEntrega] = useState([])
+
     const [estado, setEstado] = useState('');
     const [cidade, setCidade] = useState('');
     const [bairro, setBairro] = useState('');
@@ -25,7 +28,23 @@ export default function DetalhesConteinerCatalogo(){
     const aluguelSelecionado = tiposAluguel.find((aluguel) => String(aluguel.Codigo) === String(tipoAluguel)) ?? aluguelBase;
 
     useEffect(() =>{
-
+        axios.get("http://localhost/ModuLeasy/api/listarEnderecosEntrega.php", {
+        withCredentials: true,
+        })
+        .then(function (resposta) {
+        if (resposta.status === 200 && resposta.data) {
+            console.log(resposta.data);
+            setEnderecosEntrega(resposta.data.enderecosEntrega ?? [])
+            // A resposta veio SEM erros
+        } 
+        })
+        .catch(function (error) {
+        console.warn(error);
+        // O que fazer se der erro na requisição
+        })
+        .finally(function () {
+        // O que fazer independente de ter dado erro ou não
+        });
     },[])
 
     return(
@@ -224,6 +243,12 @@ export default function DetalhesConteinerCatalogo(){
                                 </div>
 
                                 <div className={styles.enderecos_cadastrados}>
+                                        {enderecosEntraga.map(function(endereco){
+                                            return(<div className={styles.endereco_cadastrado}>
+                                                <strong>{endereco.Nome}</strong>
+                                                <p>{endereco.Endereco}</p>        
+                                            </div>)
+                                        })}
                                     <div className={styles.endereco_cadastrado}>
                                         <strong>Campinas Obra</strong>
                                         <p>Rua Marilia, 324 · Bairro Jardim · Campinas, SP</p>

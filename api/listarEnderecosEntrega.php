@@ -14,14 +14,15 @@ if ($metodo != 'GET')
 	return;
 }
 
-if(!isset($_SESSION['locatario'])) {
+if(!isset($_SESSION['usuario'])) {
 	http_response_code(401);
 	echo json_encode(['mensagem' => 'Login expirado']);
 	return;
 }
 
 try {
-	$enderecosEntrega = EnderecoEntregaController::listarEnderecosEntrega($_SESSION['locatario']);
+
+	$enderecosEntrega = EnderecoEntregaController::listarEnderecosEntrega($_SESSION['usuario']->Email);
 	http_response_code(200);
 	echo json_encode(['status' => 'true', 'enderecosEntrega' => $enderecosEntrega]);
 } catch (Exception $erro) {
