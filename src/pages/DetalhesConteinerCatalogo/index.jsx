@@ -20,10 +20,14 @@ export default function DetalhesConteinerCatalogo(){
     const [rua, setRua] = useState('');
     const [numeroEndereco, setNumeroEndereco] = useState('');
     const [complemento, setComplemento] = useState('');
+    const [tipoAluguel, setTipoAluguel] = useState(aluguelBase?.Codigo ?? '');
+
+    const aluguelSelecionado = tiposAluguel.find((aluguel) => String(aluguel.Codigo) === String(tipoAluguel)) ?? aluguelBase;
 
     useEffect(() =>{
 
     },[])
+
     return(
         <>
             <main>
@@ -34,7 +38,7 @@ export default function DetalhesConteinerCatalogo(){
                     </Link>
 
                     <div className="cabecalho_alt">
-                        <h1>{nomeConteiner}</h1>
+                        <h1>{nomeConteiner}'</h1>
 
                         <Link to="/perfil-publico" className="linha_usuario">
                             <span className="avatar_usuario">{iniciaisLocador || 'LO'}</span>
@@ -101,7 +105,7 @@ export default function DetalhesConteinerCatalogo(){
 
                                     <div>
                                         <p>Tamanho</p>
-                                        <strong>{conteiner.Tamanho?.Nome ?? 'Não informado'}</strong>
+                                        <strong>{conteiner.Tamanho?.Nome ?? 'Não informado'}'</strong>
                                     </div>
 
                                     <div>
@@ -126,7 +130,9 @@ export default function DetalhesConteinerCatalogo(){
                                     <div className={styles.desce_caixa_conteudo}>
                                         <ul className={styles.lista_especificacoes}>
                                             {finalidades.map((finalidade, index) => (
-                                                <li key={finalidade.Codigo ?? index}><strong>{finalidade.Nome}</strong></li>
+                                                <li key={finalidade.Codigo ?? index}>
+                                                    <strong>{finalidade.Nome}</strong>
+                                                </li>
                                             ))}
                                         </ul>
                                     </div>
@@ -167,7 +173,7 @@ export default function DetalhesConteinerCatalogo(){
 
                                         <div className="input_geral">
                                             <select value={estado} onChange={(e)=> setEstado(e.target.value)}>
-                                                <option value="-1">Selecione</option> 
+                                                <option value="-1">Selecione</option>
 
                                                 <option value="0">SP</option>
                                                 <option value="1">RJ</option>
@@ -182,22 +188,22 @@ export default function DetalhesConteinerCatalogo(){
 
                                     <div className="campo">
                                         <label>Cidade</label>
-                                        <input type="text" value={cidade} onChange={(e) => setCidade(e.target.value)}  />
+                                        <input type="text" value={cidade} onChange={(e) => setCidade(e.target.value)} />
                                     </div>
 
                                     <div className="campo">
                                         <label>Bairro</label>
-                                        <input type="text" value={bairro} onChange={(e) => setBairro(e.target.value)}  />
+                                        <input type="text" value={bairro} onChange={(e) => setBairro(e.target.value)} />
                                     </div>
 
                                     <div className="campo">
                                         <label>Rua</label>
-                                        <input type="text" value={rua} onChange={(e) => setRua(e.target.value)}  />
+                                        <input type="text" value={rua} onChange={(e) => setRua(e.target.value)} />
                                     </div>
 
                                     <div className="campo">
                                         <label>Número</label>
-                                        <input type="text" value={numeroEndereco} onChange={(e) => setNumeroEndereco(e.target.value)}  />
+                                        <input type="text" value={numeroEndereco} onChange={(e) => setNumeroEndereco(e.target.value)} />
                                     </div>
 
                                     <div className="campo">
@@ -240,9 +246,11 @@ export default function DetalhesConteinerCatalogo(){
                                         <label>Tipo de parcela</label>
 
                                         <div className="input_geral">
-                                            <select>
+                                            <select value={tipoAluguel} onChange={(e) => setTipoAluguel(e.target.value)}>
                                                 {tiposAluguel.map((aluguel, index) => (
-                                                    <option key={aluguel.Codigo ?? index}>{aluguel.Nome}</option>
+                                                    <option key={aluguel.Codigo ?? index} value={aluguel.Codigo}>
+                                                        {aluguel.Nome}
+                                                    </option>
                                                 ))}
                                             </select>
 
@@ -269,8 +277,8 @@ export default function DetalhesConteinerCatalogo(){
                                 <div className={styles.resumo_total}>
                                     <p>Valor base</p>
                                     <strong>
-                                        {aluguelBase ? `R$ ${aluguelBase.Valor}` : 'Valor indisponível'}
-                                        {aluguelBase && <small> / {aluguelBase.Nome.toLowerCase()}</small>}
+                                        {aluguelSelecionado ? `R$ ${aluguelSelecionado.Valor}` : 'Valor indisponível'}
+                                        {aluguelSelecionado && <small> / {aluguelSelecionado.Nome.toLowerCase()}</small>}
                                     </strong>
                                 </div>
 

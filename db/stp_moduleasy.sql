@@ -530,4 +530,46 @@ begin
     where cd_conteiner = pConteiner;
 end$$
 
+DROP PROCEDURE IF EXISTS criarConteiner$$
+
+CREATE PROCEDURE criarConteiner(
+    pLocador VARCHAR(150),
+    pNvDtFabricacaoConteiner DATE,
+    pNvBicConteiner VARCHAR(11),
+    pNvTaraConteiner DECIMAL(8,2),
+    pNvCargaMaximaConteiner DECIMAL(8,2),
+    pNvTipoConteiner INT,
+    pNvTamanhoConteiner INT,
+    pNvDeposito INT,
+    pNvFabricante VARCHAR(14)
+)
+BEGIN
+
+    INSERT INTO conteiner (
+        nm_email_locador,
+        dt_fabricacao_conteiner,
+        cd_bic_conteiner,
+        qt_tara_conteiner,
+        qt_carga_maxima_conteiner,
+        cd_tipo_conteiner,
+        cd_tamanho_conteiner,
+        cd_deposito,
+        cd_cnpj_fabricante
+    )
+    VALUES (
+        pLocador,
+        pNvDtFabricacaoConteiner,
+        pNvBicConteiner,
+        pNvTaraConteiner,
+        pNvCargaMaximaConteiner,
+        pNvTipoConteiner,
+        pNvTamanhoConteiner,
+        pNvDeposito,
+        pNvFabricante
+    );
+
+    SELECT LAST_INSERT_ID() AS cd_conteiner;
+
+END$$	
+
 Delimiter $$
