@@ -1,9 +1,14 @@
-import { Link, Outlet } from 'react-router-dom';
+import { Link, Outlet, useNavigate} from 'react-router-dom';
 
 export default function MenuLateral(){
     const usuario = localStorage.getItem('usuario') ? JSON.parse(localStorage.getItem('usuario')) : null;
     const nomeUsuario = usuario ? usuario.Nome : '';
     const nomeSigla = nomeUsuario ? nomeUsuario.slice(0, 1).toUpperCase() : '';
+    const navigate = useNavigate();
+    if(!usuario){
+        encerrarSessao();
+        navigate('/');
+    }
 
     function encerrarSessao(){
         localStorage.removeItem('usuario');
@@ -79,7 +84,7 @@ export default function MenuLateral(){
 
                     <div className="usuario_info">
                         <div className="avatar">
-                            <b></b>
+                            <b>{nomeSigla}</b>
                         </div>
 
                         <p className="nome_usuario">

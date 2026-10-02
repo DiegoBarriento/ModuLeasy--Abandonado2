@@ -17,7 +17,7 @@ if ($metodo != 'GET')
 try {
 	$status = StatusController::listarStatus();
 	http_response_code(200);
-	echo json_encode(['status' => 'true', 'status' => $status]);
+	echo json_encode(['status' => 'true', 'estatus' => $status]);
 } catch (Exception $erro) {
 	http_response_code(500);
 	echo json_encode(['status' => 'false', 'mensagem' => $erro->getMessage()]);

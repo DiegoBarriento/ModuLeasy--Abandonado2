@@ -7,7 +7,7 @@ class StatusController {
         foreach ($dados as $instancia) {
             $tipoStatus = new TipoStatus($instancia['cd_tipo_status'], $instancia['nm_tipo_status']);
             $status = new Status($instancia['cd_status'], $instancia['nm_status'], $tipoStatus);
-            array_push($status, $status);
+            array_push($statusA, $status);
         }   
 
         return $statusA;
