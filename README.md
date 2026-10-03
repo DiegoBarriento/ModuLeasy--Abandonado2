@@ -17,17 +17,19 @@ If you are developing a production application, we recommend using TypeScript wi
 
 ## Deploy na Vercel
 
-O projeto usa Vite. A Vercel deve executar `npm run build` e publicar a pasta `dist`. O arquivo `vercel.json` direciona as rotas do React Router para `index.html`, permitindo abrir e atualizar páginas internas diretamente.
+O Vite publica o frontend em `dist`; o runtime comunitário `vercel-php` configurado em `vercel.json` executa os arquivos `api/*.php` como funções. O rewrite final mantém as rotas do React Router funcionando. Em produção, a URL da API usa `/api` no mesmo domínio por padrão.
 
-Configure a variável de ambiente `VITE_API_BASE_URL` na Vercel com a URL pública da pasta `api` do backend, por exemplo `https://api.exemplo.com/api`. O valor deve terminar em `/api` e não deve conter uma barra no final.
+As funções precisam de um MySQL acessível pela internet. Cadastre nas variáveis de ambiente do projeto Vercel `DB_HOST`, `DB_PORT`, `DB_NAME`, `DB_USER` e `DB_PASSWORD`. Se o provedor exigir um certificado CA, configure também `DB_SSL_CA`. Não use `localhost` para o banco na Vercel.
 
-O frontend é estático: os arquivos PHP deste repositório não são executados pelo build do Vite nem por esta configuração da Vercel. Para login, cadastro e demais operações funcionarem em produção, hospede o backend PHP e o banco em um serviço compatível e permita as origens e credenciais do domínio da Vercel no CORS.
+No banco remoto, aplique os scripts nesta ordem: `db/moduleasy_script.sql`, `db/stp_moduleasy.sql`, `db/mdt_moduleasy.sql` e `db/001_moduleasy_sessions.sql`. O primeiro script recria o schema; não o execute em um banco existente com dados que queira preservar. As sessões PHP passam a ser armazenadas no MySQL quando executadas na Vercel.
 
-Sem configuração, a URL da API em desenvolvimento é `http://localhost/ModuLeasy/api` (XAMPP). O `.env.example` usa `http://localhost:8080/api` para o backend Docker.
+Defina `CORS_ALLOWED_ORIGINS` com os domínios frontend permitidos, separados por vírgula. Como o frontend e `/api` usam o mesmo domínio, chamadas normais são same-origin; mantenha a allowlist para previews ou frontends hospedados em outro domínio. O `VITE_API_BASE_URL` pode ficar sem definir na Vercel; localmente, o `.env.example` aponta para o backend Docker.
+
+O filesystem das funções Vercel é temporário. As fotos enviadas por `criarConteiner.php` precisam ser movidas para um storage persistente (por exemplo, S3 compatível) antes de depender delas em produção.
 
 ## API com Docker
 
-A Vercel publica o frontend estático, mas não executa Docker Compose nem hospeda estes endpoints PHP. O Compose deste repositório executa Apache/PHP e MySQL em conjunto, para desenvolvimento local ou em um servidor que suporte Docker.
+A Vercel executa os endpoints PHP como funções; o Compose é uma opção separada para desenvolvimento local ou para hospedar a API em um servidor Docker.
 
 1. Copie `.env.example` para `.env` e troque as senhas de exemplo.
 2. Inicie a API e o banco com `docker compose up --build -d`.
@@ -35,4 +37,4 @@ A Vercel publica o frontend estático, mas não executa Docker Compose nem hospe
 
 A API local fica em `http://localhost:8080/api`. Os scripts do banco e os dados iniciais são carregados apenas quando o volume MySQL é criado pela primeira vez; banco e uploads ficam em volumes Docker persistentes.
 
-Para produção, publique o serviço `api` deste Compose em um servidor Docker com HTTPS e configure `VITE_API_BASE_URL` nas variáveis da Vercel para a URL pública da API, terminando em `/api` (por exemplo, `https://api.seu-dominio.com/api`). Configure também `CORS_ALLOWED_ORIGINS` no servidor com `https://moduleasy.vercel.app`. Depois, faça um novo deploy do frontend.
+Para usar o Compose em produção em vez das funções PHP da Vercel, publique o serviço `api` em um servidor Docker com HTTPS e configure `VITE_API_BASE_URL` na Vercel para a URL pública da API. Nesse caso, configure também `CORS_ALLOWED_ORIGINS` no servidor.
