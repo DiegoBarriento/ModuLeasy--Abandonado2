@@ -17,13 +17,13 @@ If you are developing a production application, we recommend using TypeScript wi
 
 ## Deploy na Vercel
 
-O Vite publica o frontend em `dist`; o runtime comunitário `vercel-php` configurado em `vercel.json` executa os arquivos `api/*.php` como funções. O rewrite final mantém as rotas do React Router funcionando. Em produção, a URL da API usa `/api` no mesmo domínio por padrão.
+O Vite publica o frontend em `dist`; o runtime comunitário `vercel-php` configurado em `vercel.json` executa um único dispatcher (`api/index.php`). Os endpoints individuais ficam em `backend-api/` e são carregados por esse dispatcher, mantendo o total em uma função PHP, abaixo do limite de 12. O rewrite `/api/:endpoint` preserva as URLs existentes e o rewrite final mantém as rotas do React Router. Em produção, a API usa `/api` no mesmo domínio Vercel; localmente, `VITE_API_BASE_URL` pode apontar para XAMPP ou Docker.
 
 As funções precisam de um MySQL acessível pela internet. Cadastre nas variáveis de ambiente do projeto Vercel `DB_HOST`, `DB_PORT`, `DB_NAME`, `DB_USER` e `DB_PASSWORD`. Se o provedor exigir um certificado CA, configure também `DB_SSL_CA`. Não use `localhost` para o banco na Vercel.
 
 No banco remoto, aplique os scripts nesta ordem: `db/moduleasy_script.sql`, `db/stp_moduleasy.sql`, `db/mdt_moduleasy.sql` e `db/001_moduleasy_sessions.sql`. O primeiro script recria o schema; não o execute em um banco existente com dados que queira preservar. As sessões PHP passam a ser armazenadas no MySQL quando executadas na Vercel.
 
-Defina `CORS_ALLOWED_ORIGINS` com os domínios frontend permitidos, separados por vírgula. Como o frontend e `/api` usam o mesmo domínio, chamadas normais são same-origin; mantenha a allowlist para previews ou frontends hospedados em outro domínio. O `VITE_API_BASE_URL` pode ficar sem definir na Vercel; localmente, o `.env.example` aponta para o backend Docker.
+Defina `CORS_ALLOWED_ORIGINS` com os domínios frontend permitidos, separados por vírgula. Como o frontend e `/api` usam o mesmo domínio, chamadas normais são same-origin; mantenha a allowlist para previews ou frontends hospedados em outro domínio. A produção ignora `VITE_API_BASE_URL` e usa sempre `/api`; localmente, o `.env.example` aponta para o backend Docker.
 
 O filesystem das funções Vercel é temporário. As fotos enviadas por `criarConteiner.php` precisam ser movidas para um storage persistente (por exemplo, S3 compatível) antes de depender delas em produção.
 

@@ -30,7 +30,12 @@ export default function Login(){
         ).then(function (resposta) {
         if (resposta.status === 200 && resposta.data) {
             console.log(resposta.data);
-            let usuario = resposta.data.usuario;
+            const usuario = resposta.data.usuario;
+            if (!usuario || !['Locador', 'Locatario'].includes(usuario.TipoUsuario)) {
+                alert(resposta.data.mensagem || 'Não foi possível validar os dados da conta.');
+                return;
+            }
+
             localStorage.setItem('usuario', JSON.stringify(usuario));
             if(usuario.TipoUsuario === 'Locador'){
                 navigate('/meus_conteineres'); // Mudar para o dashboard depois

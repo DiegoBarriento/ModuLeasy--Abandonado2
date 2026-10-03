@@ -1,16 +1,21 @@
-import { Link, Outlet, useNavigate} from 'react-router-dom';
+import { Link, Navigate, Outlet } from 'react-router-dom';
 import axios from 'axios';
 import { apiUrl } from '../../api';
 
 export default function MenuLateral(){
-    const usuario = localStorage.getItem('usuario') ? JSON.parse(localStorage.getItem('usuario')) : null;
-    const nomeUsuario = usuario ? usuario.Nome : '';
-    const nomeSigla = nomeUsuario ? nomeUsuario.slice(0, 1).toUpperCase() : '';
-    const navigate = useNavigate();
-    if(!usuario){
-        encerrarSessao();
-        navigate('/');
+    let usuario = null;
+    try {
+        usuario = JSON.parse(localStorage.getItem('usuario') || 'null');
+    } catch {
+        localStorage.removeItem('usuario');
     }
+
+    if (!usuario || !['Locador', 'Locatario'].includes(usuario.TipoUsuario)) {
+        return <Navigate to="/" replace />;
+    }
+
+    const nomeUsuario = usuario.Nome || '';
+    const nomeSigla = nomeUsuario.slice(0, 1).toUpperCase();
 
     function encerrarSessao(){
         localStorage.removeItem('usuario');

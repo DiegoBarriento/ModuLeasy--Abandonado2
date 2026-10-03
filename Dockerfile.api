@@ -4,7 +4,7 @@ RUN docker-php-ext-install pdo_mysql
 
 WORKDIR /var/www/html
 
-COPY api/ ./api/
+COPY backend-api/ ./api/
 COPY classes/ ./classes/
 
 RUN mkdir -p uploads/conteineres \
