@@ -2,6 +2,7 @@ import { Link, useLocation } from 'react-router-dom';
 import styles from './index.module.css';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import { apiUrl } from '../../api';
 
 export default function DetalhesConteinerCatalogo(){
     const location = useLocation();
@@ -28,7 +29,7 @@ export default function DetalhesConteinerCatalogo(){
     const aluguelSelecionado = tiposAluguel.find((aluguel) => String(aluguel.Codigo) === String(tipoAluguel)) ?? aluguelBase;
 
     useEffect(() =>{
-        axios.get("http://localhost/ModuLeasy/api/listarEnderecosEntrega.php", {
+        axios.get(apiUrl('listarEnderecosEntrega.php'), {
         withCredentials: true,
         })
         .then(function (resposta) {

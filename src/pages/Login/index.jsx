@@ -2,6 +2,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import styles from './index.module.css';
 import axios from 'axios';
+import { apiUrl } from '../../api';
 
 export default function Login(){
     const [email, setEmail] = useState('');
@@ -17,7 +18,7 @@ export default function Login(){
             return alert('O campo de senha é obrigatório!')
         }
 
-        axios.post("http://localhost/ModuLeasy/api/acessarConta.php", 
+        axios.post(apiUrl('acessarConta.php'),
         {
             /* conteudo do corpo JSON da requisicão */
             'email': email.trim(),

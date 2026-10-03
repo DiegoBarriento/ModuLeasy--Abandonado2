@@ -2,6 +2,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import styles from './index.module.css';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import { apiUrl } from '../../api';
 
 export default function BotaoConteinerCatalogo(props){
     const {conteiner} = props;
@@ -9,7 +10,7 @@ export default function BotaoConteinerCatalogo(props){
     const nav = useNavigate();
 
     useEffect(() => {
-        axios.post("http://localhost/ModuLeasy/api/obterDadosConteiner.php", 
+        axios.post(apiUrl('obterDadosConteiner.php'),
         {
             'conteiner': conteiner.Codigo
         },

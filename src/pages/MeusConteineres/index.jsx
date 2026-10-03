@@ -3,6 +3,7 @@ import ItemListaMeusConteineres from '../../components/ItemListaMeusConteineres'
 import styles from './index.module.css';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import { apiUrl } from '../../api';
 
 export default function MeusConteineres(){
     const [conteineres, setConteineres] = useState([]);
@@ -10,7 +11,7 @@ export default function MeusConteineres(){
     const [filtros, setFiltros] = useState([]);
 
     useEffect(() => {
-    axios.get("http://localhost/ModuLeasy/api/listarConteineresLocador.php", {
+    axios.get(apiUrl('listarConteineresLocador.php'), {
     withCredentials: true,
     })
     .then(function (resposta) {

@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import styles from './index.module.css';
 import axios from 'axios';
+import { apiUrl } from '../../api';
 
 export default function Cadastro(){
 
@@ -33,7 +34,7 @@ export default function Cadastro(){
         }
 
         if(tipoUsuario === 'locatario'){
-            axios.post("http://localhost/ModuLeasy/api/criarLocatario.php", 
+            axios.post(apiUrl('criarLocatario.php'),
             {
                 /* conteudo do corpo JSON da requisicão */
                 'email': email.trim(),
@@ -60,7 +61,7 @@ export default function Cadastro(){
             });
         }
         else if(tipoUsuario === 'locador'){
-            axios.post("http://localhost/ModuLeasy/api/criarLocador.php", 
+            axios.post(apiUrl('criarLocador.php'),
             {
                 /* conteudo do corpo JSON da requisicão */
                 'email': email.trim(),

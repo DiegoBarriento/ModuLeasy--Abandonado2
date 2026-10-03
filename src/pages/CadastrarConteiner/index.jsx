@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import styles from './index.module.css';
 import axios from 'axios';
 import { useState, useEffect, useRef } from 'react';
+import { apiUrl } from '../../api';
 
 export default function CadastrarConteiner() {
 
@@ -181,7 +182,7 @@ export default function CadastrarConteiner() {
     useEffect(() => {
 
         axios.get(
-            'http://localhost/ModuLeasy/api/listarTiposConteiner.php',
+            apiUrl('listarTiposConteiner.php'),
             {
                 withCredentials: true
             }
@@ -202,7 +203,7 @@ export default function CadastrarConteiner() {
 
 
         axios.get(
-            'http://localhost/Moduleasy/api/listarTamanhos.php',
+            apiUrl('listarTamanhos.php'),
             {
                 withCredentials: true
             }
@@ -222,7 +223,7 @@ export default function CadastrarConteiner() {
 
 
         axios.get(
-            'http://localhost/ModuLeasy/api/listarCategoriasComponente.php',
+            apiUrl('listarCategoriasComponente.php'),
             {
                 withCredentials: true
             }
@@ -242,7 +243,7 @@ export default function CadastrarConteiner() {
 
 
         axios.get(
-            'http://localhost/ModuLeasy/api/listarFinalidades.php',
+            apiUrl('listarFinalidades.php'),
             {
                 withCredentials: true
             }
@@ -262,7 +263,7 @@ export default function CadastrarConteiner() {
 
 
         axios.get(
-            'http://localhost/ModuLeasy/api/listarTiposAluguel.php',
+            apiUrl('listarTiposAluguel.php'),
             {
                 withCredentials: true
             }
@@ -797,7 +798,7 @@ export default function CadastrarConteiner() {
 
             const resposta =
                 await axios.post(
-                    'http://localhost/ModuLeasy/api/criarConteiner.php',
+                    apiUrl('criarConteiner.php'),
                     formData,
                     {
                         withCredentials: true

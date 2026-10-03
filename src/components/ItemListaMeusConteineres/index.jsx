@@ -2,6 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import styles from './index.module.css';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
+import { apiUrl } from '../../api';
 
 export default function ItemListaMeusConteineres(props){
         const nav = useNavigate();
@@ -9,7 +10,7 @@ export default function ItemListaMeusConteineres(props){
         const [dados, setDados] = useState(null);
 
         useEffect(() => {
-        axios.post("http://localhost/ModuLeasy/api/obterDadosConteiner.php", 
+        axios.post(apiUrl('obterDadosConteiner.php'),
         {
             'conteiner': conteiner.Codigo
         },

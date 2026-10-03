@@ -1,4 +1,6 @@
 import { Link, Outlet, useNavigate} from 'react-router-dom';
+import axios from 'axios';
+import { apiUrl } from '../../api';
 
 export default function MenuLateral(){
     const usuario = localStorage.getItem('usuario') ? JSON.parse(localStorage.getItem('usuario')) : null;
@@ -12,7 +14,7 @@ export default function MenuLateral(){
 
     function encerrarSessao(){
         localStorage.removeItem('usuario');
-        axios.get("http://localhost/ModuLeasy/api/encerrarsessao.php", {
+        axios.get(apiUrl('encerrarsessao.php'), {
         withCredentials: true,
         })
         .then(function (resposta) {

@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { apiUrl } from '../../api';
 import BotaoConteinerCatalogo from '../../components/BotaoConteinerCatalogo';
 import styles from './index.module.css';
 import {useState, useEffect} from 'react';
@@ -13,7 +14,7 @@ export default function Catalogo(){
 
     useEffect(() => {
 
-        axios.get("http://localhost/ModuLeasy/api/listarConteineres.php", {
+        axios.get(apiUrl('listarConteineres.php'), {
         withCredentials: true,
         })
         .then(function (resposta) {
@@ -31,7 +32,7 @@ export default function Catalogo(){
         // O que fazer independente de ter dado erro ou não
         });
 
-        axios.get("http://localhost/ModuLeasy/api/listarTiposConteiner.php", {
+        axios.get(apiUrl('listarTiposConteiner.php'), {
         withCredentials: true,
         })
         .then(function (resposta) {
@@ -48,7 +49,7 @@ export default function Catalogo(){
         // O que fazer independente de ter dado erro ou não
         });
 
-        axios.get("http://localhost/ModuLeasy/api/listarTamanhos.php", {
+        axios.get(apiUrl('listarTamanhos.php'), {
         withCredentials: true,
         })
         .then(function (resposta) {
@@ -65,7 +66,7 @@ export default function Catalogo(){
         // O que fazer independente de ter dado erro ou não
         });
 
-        axios.get("http://localhost/ModuLeasy/api/listarFinalidades.php", {
+        axios.get(apiUrl('listarFinalidades.php'), {
         withCredentials: true,
         })
         .then(function (resposta) {
@@ -82,7 +83,7 @@ export default function Catalogo(){
         // O que fazer independente de ter dado erro ou não
         });
 
-        axios.get("http://localhost/ModuLeasy/api/listarTiposAluguel.php", {
+        axios.get(apiUrl('listarTiposAluguel.php'), {
         withCredentials: true,
         })
         .then(function (resposta) {
