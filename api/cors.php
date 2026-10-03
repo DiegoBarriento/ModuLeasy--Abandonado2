@@ -1,8 +1,8 @@
 <?php
-$allowedOrigins = [
-	'http://localhost:5173',
-	'https://moduleasy.vercel.app',
-];
+$allowedOrigins = array_filter(array_map(
+	'trim',
+	explode(',', getenv('CORS_ALLOWED_ORIGINS') ?: 'http://localhost:5173,https://moduleasy.vercel.app')
+));
 
 $origin = $_SERVER['HTTP_ORIGIN'] ?? '';
 
