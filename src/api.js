@@ -1,5 +1,5 @@
 const baseUrl = import.meta.env.DEV
-    ? import.meta.env.VITE_API_BASE_URL || 'http://localhost/ModuLeasy/api'
+    ? import.meta.env.VITE_API_BASE_URL || 'http://localhost/ModuLeasy/backend-api'
     : '/api';
 
 export function apiUrl(endpoint) {

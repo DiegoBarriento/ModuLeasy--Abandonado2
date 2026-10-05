@@ -14,7 +14,8 @@
     "docker": "^1.0.0",
     "react": "^19.2.6",
     "react-dom": "^19.2.6",
-    "react-router-dom": "^7.18.4"
+    "react-router-dom": "^7.18.4",
+    "vercel": "^62.2.0"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
