@@ -1,94 +1,101 @@
 <?php
 class SupabaseClient
 {
-	private string $baseUrl;
-	private string $secretKey;
+    private string $baseUrl;
+    private string $secretKey;
 
-	public function __construct()
-	{
-		$url = getenv('SUPABASE_URL');
-		$secretKey = getenv('SUPABASE_SECRET_KEY');
+    public function __construct()
+    {
+        $url = getenv('SUPABASE_URL');
+        $secretKey = getenv('SUPABASE_SECRET_KEY');
 
-		if ($url === false || $url === '' || $secretKey === false || $secretKey === '') {
-			throw new RuntimeException('Configure SUPABASE_URL e SUPABASE_SECRET_KEY no ambiente.');
-		}
+        if ($url === false || $url === '' || $secretKey === false || $secretKey === '') {
+            throw new RuntimeException('Configure SUPABASE_URL e SUPABASE_SECRET_KEY no ambiente.');
+        }
 
-		if (!filter_var($url, FILTER_VALIDATE_URL) || strtolower((string) parse_url($url, PHP_URL_SCHEME)) !== 'https') {
-			throw new RuntimeException('SUPABASE_URL deve ser uma URL HTTPS válida.');
-		}
+        if (!filter_var($url, FILTER_VALIDATE_URL) || strtolower((string) parse_url($url, PHP_URL_SCHEME)) !== 'https') {
+            throw new RuntimeException('SUPABASE_URL deve ser uma URL HTTPS válida.');
+        }
 
-		if (!function_exists('curl_init')) {
-			throw new RuntimeException('A extensão cURL do PHP é necessária para acessar o Supabase.');
-		}
+        if (!function_exists('curl_init')) {
+            throw new RuntimeException('A extensão cURL do PHP é necessária para acessar o Supabase.');
+        }
 
-		$this->baseUrl = rtrim($url, '/');
-		$this->secretKey = $secretKey;
-	}
+        $this->baseUrl = rtrim($url, '/');
+        $this->secretKey = $secretKey;
+    }
 
-	public function request(string $method, string $resource, ?array $body = null): array
-	{
-		$method = strtoupper($method);
-		if (!in_array($method, ['GET', 'POST', 'PATCH', 'DELETE'], true)) {
-			throw new InvalidArgumentException('Método HTTP não suportado.');
-		}
+    // Adicionado o parâmetro ?array $customHeaders para permitir Upsert nativo
+    public function request(string $method, string $resource, ?array $body = null, ?array $customHeaders = null): array
+    {
+        $method = strtoupper($method);
+        if (!in_array($method, ['GET', 'POST', 'PATCH', 'DELETE'], true)) {
+            throw new InvalidArgumentException('Método HTTP não suportado.');
+        }
 
-		if ($resource === '' || $resource[0] !== '/' || str_contains($resource, "\r") || str_contains($resource, "\n")) {
-			throw new InvalidArgumentException('Recurso Supabase inválido.');
-		}
+        if ($resource === '' || $resource[0] !== '/' || str_contains($resource, "\r") || str_contains($resource, "\n")) {
+            throw new InvalidArgumentException('Recurso Supabase inválido.');
+        }
 
-		$headers = [
-			'apikey: ' . $this->secretKey,
-			'Accept: application/json',
-		];
-		$options = [
-			CURLOPT_RETURNTRANSFER => true,
-			CURLOPT_CUSTOMREQUEST => $method,
-			CURLOPT_HTTPHEADER => $headers,
-			CURLOPT_CONNECTTIMEOUT => 5,
-			CURLOPT_TIMEOUT => 15,
-		];
+        $headers = [
+            'apikey: ' . $this->secretKey,
+            'Accept: application/json',
+        ];
 
-		if ($body !== null) {
-			$payload = json_encode($body, JSON_THROW_ON_ERROR);
-			$options[CURLOPT_POSTFIELDS] = $payload;
-			$headers[] = 'Content-Type: application/json';
-			$options[CURLOPT_HTTPHEADER] = $headers;
-		}
+        // Mescla cabeçalhos customizados se houver
+        if ($customHeaders !== null) {
+            $headers = array_merge($headers, $customHeaders);
+        }
 
-		$curl = curl_init($this->baseUrl . '/rest/v1' . $resource);
-		if ($curl === false) {
-			throw new RuntimeException('Não foi possível iniciar a conexão com o Supabase.');
-		}
+        $options = [
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_CUSTOMREQUEST => $method,
+            CURLOPT_HTTPHEADER => $headers,
+            CURLOPT_CONNECTTIMEOUT => 5,
+            CURLOPT_TIMEOUT => 15,
+        ];
 
-		curl_setopt_array($curl, $options);
-		$response = curl_exec($curl);
-		$status = (int) curl_getinfo($curl, CURLINFO_RESPONSE_CODE);
-		$error = curl_error($curl);
-		curl_close($curl);
+        if ($body !== null) {
+            $payload = json_encode($body, JSON_THROW_ON_ERROR);
+            $options[CURLOPT_POSTFIELDS] = $payload;
+            $headers[] = 'Content-Type: application/json';
+            $options[CURLOPT_HTTPHEADER] = $headers;
+        }
 
-		if ($response === false) {
-			throw new RuntimeException('Falha de rede ao acessar o Supabase: ' . $error);
-		}
+        $curl = curl_init($this->baseUrl . '/rest/v1' . $resource);
+        if ($curl === false) {
+            throw new RuntimeException('Não foi possível iniciar a conexão com o Supabase.');
+        }
 
-		if ($status < 200 || $status >= 300) {
-			throw new RuntimeException('O Supabase respondeu com HTTP ' . $status . '.');
-		}
+        curl_setopt_array($curl, $options);
+        $response = curl_exec($curl);
+        $status = (int) curl_getinfo($curl, CURLINFO_RESPONSE_CODE);
+        $error = curl_error($curl);
+        curl_close($curl);
 
-		if ($response === '') {
-			return [];
-		}
+        if ($response === false) {
+            throw new RuntimeException('Falha de rede ao acessar o Supabase: ' . $error);
+        }
 
-		$data = json_decode($response, true, 512, JSON_THROW_ON_ERROR);
-		if (!is_array($data)) {
-			throw new RuntimeException('O Supabase retornou uma resposta inesperada.');
-		}
+        if ($status < 200 || $status >= 300) {
+            throw new RuntimeException('O Supabase responded com HTTP ' . $status . '.');
+        }
 
-		return $data;
-	}
+        if ($response === '') {
+            return [];
+        }
 
-	public function verificarBanco(): void
-	{
-		$this->request('GET', '/locador?select=nm_email_locador&limit=0');
-	}
+        $data = json_decode($response, true, 512, JSON_THROW_ON_ERROR);
+        if (!is_array($data)) {
+            throw new RuntimeException('O Supabase retornou uma resposta inesperada.');
+        }
+
+        return $data;
+    }
+
+    public function verificarBanco(): void
+    {
+        $this->request('GET', '/locador?select=nm_email_locador&limit=0');
+    }
 }
 ?>
