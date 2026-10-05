@@ -25,6 +25,14 @@ No banco remoto, aplique os scripts nesta ordem: `db/moduleasy_script.sql`, `db/
 
 Defina `CORS_ALLOWED_ORIGINS` com os domínios frontend permitidos, separados por vírgula. Como o frontend e `/api` usam o mesmo domínio, chamadas normais são same-origin; mantenha a allowlist para previews ou frontends hospedados em outro domínio. A produção ignora `VITE_API_BASE_URL` e usa sempre `/api`; localmente, o `.env.example` aponta para o backend Docker.
 
+### Supabase (etapa inicial)
+
+O esquema PostgreSQL inicial está em `db/supabase_schema.sql`. Aplique-o no SQL Editor do projeto Supabase antes de verificar a conexão. Ele cria as tabelas do sistema com RLS habilitado e não apaga tabelas nem dados existentes.
+
+Configure `SUPABASE_URL` e `SUPABASE_SECRET_KEY` como variáveis de ambiente **do servidor** no Vercel. A chave secreta é usada apenas pelo PHP e nunca deve receber o prefixo `VITE_` nem ser incluída no frontend. Depois de configurar, consulte `/api/supabaseStatus.php`; um retorno `status: true` confirma o acesso à tabela `locador` via Supabase REST.
+
+Esta etapa adiciona a conexão e o esquema, mas ainda não migra as rotas de negócio: os endpoints atuais continuam usando procedures MySQL e exigem a configuração `DB_*` acima. A substituição completa do backend e do armazenamento de sessões requer portar essas procedures para PostgreSQL/RPC e atualizar os endpoints antes de remover o MySQL.
+
 O filesystem das funções Vercel é temporário. As fotos enviadas por `criarConteiner.php` precisam ser movidas para um storage persistente (por exemplo, S3 compatível) antes de depender delas em produção.
 
 ## API com Docker
