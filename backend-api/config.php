@@ -18,14 +18,25 @@ spl_autoload_register(function ($nomeClasse) {
 	}
 });
 
+
+
 if (session_status() !== PHP_SESSION_ACTIVE) {
 	if (getenv('VERCEL') === '1' || getenv('SESSION_DRIVER') === 'mysql') {
+		$_ENV['DB_HOST'] = '...'; 
 		require_once dirname(__DIR__) . '/classes/base/MysqlSessionHandler.php';
 		session_set_save_handler(new MysqlSessionHandler(), true);
+		$sessionHandler = new MysqlSessionHandler();
+		session_set_save_handler($sessionHandler, true);
+		session_start();
 	}
 
 	$isHttps = (!empty($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) !== 'off')
 		|| getenv('VERCEL') === '1';
+	$_ENV['DB_HOST'] = '...';
+	require_once dirname(__DIR__) . '/classes/base/MysqlSessionHandler.php';
+	session_set_save_handler(new MysqlSessionHandler(), true);
+	$sessionHandler = new MysqlSessionHandler();
+	session_set_save_handler($sessionHandler, true);
 	session_set_cookie_params([
 		'lifetime' => 0,
 		'path' => '/',
